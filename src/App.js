@@ -1,8 +1,22 @@
+import React from 'react';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+import { Routes, Route, BrowserRouter } from "react-router-dom";
+
 function App() {
+
+
   return (
-    <div>
-     욕하지 마라
-    </div>
+      <div>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/' element={<Home/>}/>
+            <Route path='/login' element={<Login/>}/>
+            <Route path='/register' element={<Register/>}/>
+          </Routes>
+        </BrowserRouter>
+      </div>
   );
 }
 
