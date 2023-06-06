@@ -1,0 +1,17 @@
+  .drop-container {
+    width: 100%;
+    height: 200px;
+    border: 2px dashed #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .drop-container p {
+    color : white;
+  }
+  
+  .drop-container.dragged {
+    border-color: #000;
+    background: #eee;
+  }

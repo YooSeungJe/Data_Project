@@ -39,7 +39,7 @@ function Home() {
             </div>
             {showOptions && (
             <div className='menu'>
-                <p>신고</p>
+                <p onClick={()=>{navigate('/report')}}>신고</p>
                 <p>통계</p>
             </div>
             )}
