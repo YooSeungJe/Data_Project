@@ -26,18 +26,18 @@ function Login() {
                     <p>로그인</p>
                 </div>
                 <div className='login-box'>
-                    <div class="user-box">
-                        <input type="text" name="" required="" />
-                        <label>아이디</label>
+                    <div className="user-box">
+                        <input style={{width:'91%'}} type="text" name="" required="" />
+                        <label>이메일</label>
                     </div>
-                    <div class="user-box">
-                        <input type="password" name="" required="" />
+                    <div className="user-box">
+                        <input style={{width:'91%'}} type="password" name="" required="" />
                         <label>비밀번호</label>
                     </div><center>
-                    <a href="#">
+                    <button>
                         Login
                     <span></span>
-                    </a></center>
+                    </button></center>
                 </div>
             </div>
         </div>

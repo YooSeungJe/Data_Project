@@ -1,7 +1,7 @@
 import './css/Register.css'
 import {useNavigate} from 'react-router-dom'
 import { useState } from 'react';
-
+import axios from 'axios';
 function Register() {
 
     const 징크스 = process.env.PUBLIC_URL + '/징크스.jpg';
@@ -15,16 +15,49 @@ function Register() {
 
     const navigate = useNavigate();
 
-    const [isAgreed, setIsAgreed] = useState(true);
+    const [emailId, setEmailId] = useState('');
+    const [password, setPassword] = useState('');
+    const [nickname, setNickname] = useState('');
+    const [isMale, setIsMale] = useState('');
+    const [personalInfoAgree, setPersonalInfoAgree] = useState();
+    const [name, setName] = useState();
+    const [lolId, setLolId] = useState('');
 
-    const handleAgreeChange = (event) => {
-      setIsAgreed(event.target.checked);
-    };
-  
-    const handleSubmit = (event) => {
-      event.preventDefault();
-      // 약관 동의 처리 로직 작성
-    };
+    
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+      
+        try {
+          const response = await axios.post('http://localhost:3001/user/register', {
+            emailId,
+            password,
+            nickname,
+            isMale,
+            personalInfoAgree,
+            name,
+            lolId,
+          });
+      
+          if (response && response.data) {
+            console.log(response.data)
+            alert('계정 생성 성공!')
+            navigate('/login')
+            ; // 성공 응답 확인
+            // TODO: 회원가입 성공 시의 동작 추가
+          } else {
+            console.error('Invalid response'); // 응답이 올바르지 않은 경우 에러 처리
+            // TODO: 응답이 올바르지 않은 경우의 동작 추가
+          }
+        } catch (error) {
+          console.error(error.response?.data || error);
+          alert('계정 생성 실패')
+          // 실패 응답 확인 또는 예외 처리
+          // TODO: 회원가입 실패 시의 동작 추가
+        }
+      };
+      
+      
 
     return(
         <div style={divStyle}>
@@ -35,32 +68,92 @@ function Register() {
                 <div className='register-title'>
                     <p>회원가입</p>
                 </div>
-                <div className='register-box'>
-                    <div class="user-box">
-                        <input type="text" name="" required="" />
-                        <label>아이디</label>
+                <form className='register-box' onSubmit={handleSubmit}>
+                    <div className="user-box">
+                        <input 
+                            type="text"
+                            value={name}
+                            onChange={(e) => setName(e.target.value)}
+                            required
+                        />
+                        <label>이름</label>
+                        <input 
+                            type="email"
+                            value={emailId}
+                            onChange={(e) => setEmailId(e.target.value)}
+                            required
+                        />
+                        <label style={{marginLeft:'440px'}}>이메일</label>
+                        
                     </div>
-                    <div class="user-box">
-                        <input type="password" name="" required="" />
+                    <div className='user-box'>
+                        <input
+                            style={{width:'91%'}} 
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
                         <label>비밀번호</label>
-                    </div>
+                    </div>    
                     
-                    <div class="user-box">
-                        <input type="text" name="" required="" />
-                        <label>LOL 닉네임</label>
+                    <div className="user-box">
+                        <input 
+                            type="text"
+                            value={lolId}
+                            onChange={(e) => setLolId(e.target.value)}
+                            required
+                        />
+                        <label>LOL 아이디</label>
+                        <input 
+                            type="text"
+                            value={nickname}
+                            onChange={(e) => setNickname(e.target.value)}
+                            required
+                        />
+                        <label style={{marginLeft:'440px'}}>LOL 닉네임</label>
                     </div><center>
 
                     <div className='sex'>
-                        <p>남자<input type='radio'  id="male" name="gender" value="male"></input></p>
-                        <p style={{marginLeft:'30px'}}>여자<input type='radio'  id="female" name="gender" value="female"></input></p>
+                        <p>남자<input 
+                            type="radio"
+                            name="gender"
+                            value={1}
+                            checked={isMale === 1}
+                            onChange={() => setIsMale(1)}
+                        ></input></p>
+                        <p style={{marginLeft:'30px'}}>여자<input 
+                            type="radio"
+                            name="gender"
+                            value={0}
+                            checked={isMale === 0}
+                            onChange={() => setIsMale(0)}
+                        ></input></p>
                     </div>
+                    <div className="scroll-textbox">
+                        <textarea
+                        placeholder="가입할래 말래?"
+                        disabled
+                        />
+                    </div>
+                    <div>
+                        <p style={{color:'white'}}>동의함<input 
+                        type='radio'
+                        name='personalInfoAgree'
+                        value={1}
+                        checked={personalInfoAgree === 1}
+                        onChange={()=>setPersonalInfoAgree(1)}
+                        ></input></p>
+                    </div>
+  
 
 
-                    <a href="#">
+
+                    <button type="submit">
                         Register
                     <span></span>
-                    </a></center>
-                </div>
+                    </button></center>
+                </form>
             </div>
         </div>
     )

@@ -24,7 +24,6 @@
     padding: 10px 0 0 30px;
     color: white;
     font-size: 40px;
-    margin-top: 20px;
 }
 
 .user-box {
@@ -32,7 +31,7 @@
 }
 
 .user-box input {
-    width: 92%;
+    width: 43.7%;
     padding: 10px 0;
     font-size: 16px;
     color: #fff;
@@ -67,7 +66,7 @@
     margin-left: 3px;
   }
 
-  .register-box a {
+  .register-box button {
     position: relative;
     display: inline-block;
     padding: 10px 20px;
@@ -78,10 +77,12 @@
     overflow: hidden;
     transition: .5s;
     margin-top: 40px;
-    letter-spacing: 4px
+    letter-spacing: 4px;
+    background-color: black;
+    border: none;
   }
   
-  .register-box a:hover {
+  .register-box button:hover {
     background: #03f40f;
     color: #fff;
     border-radius: 5px;
@@ -91,7 +92,7 @@
                 0 0 100px #03f40f;
   }
   
-  .register-box a span {
+  .register-box button span {
     position: absolute;
     display: block;
   }
@@ -106,11 +107,24 @@
     }
   }
   
-  .register-box a span:nth-child(1) {
+  .register-box button span:nth-child(1) {
     bottom: 2px;
     left: -100%;
     width: 100%;
     height: 2px;
     background: linear-gradient(90deg, transparent, #03f40f);
     animation: btn-anim1 2s linear infinite;
+  }
+
+
+
+  
+  .scroll-textbox textarea {
+    width: 91%;
+    height: 100px;
+    padding: 10px;
+    resize: vertical;
+    overflow-y: auto;
+    background-color: white;
+    color: black;
   }
