@@ -4,14 +4,7 @@ import { useState } from 'react';
 import axios from 'axios';
 function Register() {
 
-    const 징크스 = process.env.PUBLIC_URL + '/징크스.jpg';
 
-    const divStyle = {
-      backgroundImage: `url(${징크스})`,
-      backgroundSize: 'cover',
-      backgroundPosition: 'center',
-      height: '100vh',
-    };
 
     const navigate = useNavigate();
 
@@ -33,9 +26,9 @@ function Register() {
             emailId,
             password,
             nickname,
-            isMale,
-            personalInfoAgree,
             name,
+            personalInfoAgree,
+            isMale,
             lolId,
           });
       
@@ -60,7 +53,7 @@ function Register() {
       
 
     return(
-        <div style={divStyle}>
+        <div className='back-style'>
             <div className='register-form'>
                 <div className='register-home'>
                     <p onClick={()=>{navigate('/')}}>PECO</p>
@@ -83,12 +76,12 @@ function Register() {
                             onChange={(e) => setEmailId(e.target.value)}
                             required
                         />
-                        <label style={{marginLeft:'440px'}}>이메일</label>
+                        <label className='email'>이메일</label>
                         
                     </div>
                     <div className='user-box'>
                         <input
-                            style={{width:'91%'}} 
+                            className='password'
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
@@ -111,7 +104,7 @@ function Register() {
                             onChange={(e) => setNickname(e.target.value)}
                             required
                         />
-                        <label style={{marginLeft:'440px'}}>LOL 닉네임</label>
+                        <label className='nickname'>LOL 닉네임</label>
                     </div><center>
 
                     <div className='sex'>
@@ -137,7 +130,7 @@ function Register() {
                         />
                     </div>
                     <div>
-                        <p style={{color:'white'}}>동의함<input 
+                        <p style={{color:'white', textAlign:'right', marginRight:'36px'}}>동의함<input 
                         type='radio'
                         name='personalInfoAgree'
                         value={1}
@@ -160,3 +153,4 @@ function Register() {
 }
 
 export default Register
+
