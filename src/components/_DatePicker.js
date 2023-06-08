@@ -3,13 +3,12 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./css/_DatePicker.css"
 
-export default function _DatePicker() {
-  const [startDate, setStartDate] = useState(null);
+export default function _DatePicker({date, onDateChange}) {
 
   return (
     <DatePicker
-      selected={startDate}
-      onChange={(date) => setStartDate(date)}
+      selected={date}
+      onChange={onDateChange}
       showTimeSelect
       timeFormat="HH:mm"
       timeIntervals={15}
