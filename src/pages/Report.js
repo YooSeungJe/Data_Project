@@ -14,7 +14,7 @@ export default function Report () {
     const divStyle = {
         backgroundImage: `url(${진})`,
         backgroundSize: `100% 100%`,
-        backgroundPosition: 'lefr',
+        backgroundPosition: 'left',
         height: '100vh',
         width: `50%`,
     };

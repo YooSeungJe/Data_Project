@@ -50,6 +50,28 @@ function Register() {
         }
       };
       
+      const handleConfirmSubmit = async (e) => {
+        e.preventDefault();
+      
+        try {
+          const response = await axios.post('http://localhost:3001/lolUser/check', {
+            lolId,
+          });
+      
+          if (response && response.data) {
+            if (response.data.exists) {
+              alert('이미 사용 중인 LOL 닉네임입니다.');
+            } else {
+              alert('확인 완료');
+            }
+          } else {
+            console.error('Invalid response');
+          }
+        } catch (error) {
+          console.error(error.response?.data || error);
+          alert('존재하지 않는 닉네임입니다');
+        }
+      };
       
 
     return(
@@ -92,19 +114,23 @@ function Register() {
                     
                     <div className="user-box">
                         <input 
+                            className='lol-input'
                             type="text"
                             value={lolId}
                             onChange={(e) => setLolId(e.target.value)}
                             required
                         />
-                        <label>LOL 아이디</label>
-                        <input 
+                        <label>LOL 닉네임</label>
+                        <button className='confirm-button' onClick={handleConfirmSubmit}>확인</button>
+                        <input
+                            className='peco-input' 
+                            style={{position:'relative', right:'30px'}}
                             type="text"
                             value={nickname}
                             onChange={(e) => setNickname(e.target.value)}
                             required
                         />
-                        <label className='nickname'>LOL 닉네임</label>
+                        <label className='nickname'>PECO 닉네임</label>
                     </div><center>
 
                     <div className='sex'>
@@ -142,7 +168,7 @@ function Register() {
 
 
 
-                    <button type="submit">
+                    <button className='green-button' type="submit">
                         Register
                     <span></span>
                     </button></center>
@@ -153,4 +179,6 @@ function Register() {
 }
 
 export default Register
+
+
 
