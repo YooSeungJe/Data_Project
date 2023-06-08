@@ -1,66 +1,66 @@
 @import url('https://fonts.googleapis.com/css2?family=Livvic:wght@700&display=swap');
 
 .back-style {
-  background-image: url("/public/징크스.jpg"); 
+  background-image: url('/public/징크스.jpg');
   background-size: cover;
   background-position: center;
   height: 100vh;
 }
 
 .register-form {
-    width: 50%;
-    float: right;
-    height: 100%;
-    background-color: black;
+  width: 50%;
+  float: right;
+  height: 100%;
+  background-color: black;
 }
 
 .register-home {
-    color: white;
-    text-align: center;
-    padding-top: 10px;
-    font-size: 100px;
-    font-family: 'Livvic', sans-serif;
-    text-shadow: white 2px 2px 2px;
+  color: white;
+  text-align: center;
+  padding-top: 10px;
+  font-size: 100px;
+  font-family: 'Livvic', sans-serif;
+  text-shadow: white 2px 2px 2px;
 }
 
 .register-home p {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .register-title {
-    padding: 10px 0 0 30px;
-    color: white;
-    font-size: 40px;
+  padding: 10px 0 0 30px;
+  color: white;
+  font-size: 40px;
 }
 
 .user-box {
-    position: relative;
+  position: relative;
 }
 
 .user-box input {
-    width: 43.7%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-    margin-left: 30px;
-    margin-top: 35px;
+  width: 43.7%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  margin-left: 30px;
+  margin-top: 35px;
 }
 
 .user-box label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
-    margin-left: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+  margin-left: 30px;
 }
 
 .user-box .email {
@@ -75,96 +75,111 @@
   width: 91%;
 }
 
-  .sex {
-    color: white;
-    display: flex;
-    margin-left: 30px;
-  }
+.sex {
+  color: white;
+  display: flex;
+  margin-left: 30px;
+}
 
-  .sex input {
-    margin-left: 3px;
-  }
+.sex input {
+  margin-left: 3px;
+}
 
-  .register-box button {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #ffffff;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px;
-    background-color: black;
-    border: none;
-  }
-  
-  .register-box button:hover {
-    background: #03f40f;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #03f40f,
-                0 0 25px #03f40f,
-                0 0 50px #03f40f,
-                0 0 100px #03f40f;
-  }
-  
-  .register-box button span {
-    position: absolute;
-    display: block;
-  }
-  
-  @keyframes btn-anim1 {
-    0% {
-      left: -100%;
-    }
-  
-    50%,100% {
-      left: 100%;
-    }
-  }
-  
-  .register-box button span:nth-child(1) {
-    bottom: 2px;
+.register-box .green-button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+  background-color: black;
+  border: none;
+}
+
+.register-box .green-button:hover {
+  background: #03f40f;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03f40f, 0 0 25px #03f40f, 0 0 50px #03f40f,
+    0 0 100px #03f40f;
+}
+
+.register-box .green-button span {
+  position: absolute;
+  display: block;
+}
+
+@keyframes btn-anim1 {
+  0% {
     left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #03f40f);
-    animation: btn-anim1 2s linear infinite;
   }
 
+  50%,
+  100% {
+    left: 100%;
+  }
+}
 
+.register-box .green-button span:nth-child(1) {
+  bottom: 2px;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03f40f);
+  animation: btn-anim1 2s linear infinite;
+}
 
-  
-  .scroll-textbox textarea {
-    width: 91%;
-    height: 100px;
-    padding: 10px;
-    resize: vertical;
-    overflow-y: auto;
-    background-color: white;
-    color: black;
+.scroll-textbox textarea {
+  width: 91%;
+  height: 100px;
+  padding: 10px;
+  resize: vertical;
+  overflow-y: auto;
+  background-color: white;
+  color: black;
+}
+
+.confirm-button {
+  background-color: black;
+  color: white;
+  border: none;
+  position: relative;
+  right: 40px;
+}
+
+@media screen and (max-width: 960px) {
+  .user-box .password {
+    width: 70%;
   }
 
-  @media screen and (max-width : 960px) {
-    .user-box .password{
-      width: 43.8%;
-    }
+  .user-box .email {
+    margin-left: 75px;
+    margin-top: 120px;
+  }
 
-    .user-box .email {
-      margin-left: 28px;
-      margin-top: 120px;
-    }
+  .user-box .nickname {
+    margin-left: 75px;
+    margin-top: 120px;
+  }
 
-    .user-box .nickname {
-      margin-left: 28px;
-      margin-top: 120px;
-    }
+  .back-style {
+    height: 120vh;
+  }
 
-    .back-style {
-      height: 120vh;
-    }
-  } 
-  
+  .user-box {
+    text-align: center;
+  }
+
+  .user-box input {
+    width: 70%;
+  }
+
+  .user-box label {
+    margin-left: 75px;
+  }
+}

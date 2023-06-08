@@ -1,121 +1,120 @@
 @import url('https://fonts.googleapis.com/css2?family=Livvic:wght@700&display=swap');
 @font-face {
   font-family: 'SUIT-Regular';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2')
+    format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
-
 .login-form {
-    width: 50%;
-    float: right;
-    height: 100%;
-    background-color: black;
+  width: 50%;
+  float: right;
+  height: 100%;
+  background-color: black;
 }
 
 .login-home {
-    color: white;
-    text-align: center;
-    padding-top: 30px;
-    font-size: 100px;
-    font-family: 'Livvic', sans-serif;
-    text-shadow: white 2px 2px 2px;
+  color: white;
+  text-align: center;
+  padding-top: 30px;
+  font-size: 100px;
+  font-family: 'Livvic', sans-serif;
+  text-shadow: white 2px 2px 2px;
 }
 
 .login-home p {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .login-title {
-    padding: 10px 0 0 30px;
-    color: white;
-    font-size: 40px;
-    margin-top: 50px;
-    font-family: 'SUIT-Regular';
+  padding: 10px 0 0 30px;
+  color: white;
+  font-size: 40px;
+  margin-top: 50px;
+  font-family: 'SUIT-Regular';
 }
 
 .login-box {
-    margin-top: 40px;
-    font-family: 'SUIT-Regular';
+  margin-top: 40px;
+  font-family: 'SUIT-Regular';
 }
 
 .user-box {
-    position: relative;
+  position: relative;
 }
 
 .user-box input {
-    width: 92%;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    margin-bottom: 30px;
-    border: none;
-    border-bottom: 1px solid #fff;
-    outline: none;
-    background: transparent;
-    margin-left: 30px;
-    margin-top: 35px;
+  width: 92%;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #fff;
+  outline: none;
+  background: transparent;
+  margin-left: 30px;
+  margin-top: 35px;
 }
 
 .user-box label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 10px 0;
-    font-size: 16px;
-    color: #fff;
-    pointer-events: none;
-    transition: .5s;
-    margin-left: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px 0;
+  font-size: 16px;
+  color: #fff;
+  pointer-events: none;
+  transition: 0.5s;
+  margin-left: 30px;
+}
+
+.login-box button {
+  position: relative;
+  display: inline-block;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 16px;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  margin-top: 40px;
+  letter-spacing: 4px;
+  background-color: black;
+  border: none;
+}
+
+.login-box button:hover {
+  background: #03f40f;
+  color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #03f40f, 0 0 25px #03f40f, 0 0 50px #03f40f,
+    0 0 100px #03f40f;
+}
+
+.login-box button span {
+  position: absolute;
+  display: block;
+}
+
+@keyframes btn-anim1 {
+  0% {
+    left: -100%;
   }
 
-  .login-box button {
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    color: #ffffff;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    overflow: hidden;
-    transition: .5s;
-    margin-top: 40px;
-    letter-spacing: 4px;
-    background-color: black;
-    border: none;
+  50%,
+  100% {
+    left: 100%;
   }
-  
-  .login-box button:hover {
-    background: #03f40f;
-    color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #03f40f,
-                0 0 25px #03f40f,
-                0 0 50px #03f40f,
-                0 0 100px #03f40f;
-  }
-  
-  .login-box button span {
-    position: absolute;
-    display: block;
-  }
-  
-  @keyframes btn-anim1 {
-    0% {
-      left: -100%;
-    }
-  
-    50%,100% {
-      left: 100%;
-    }
-  }
-  
-  .login-box button span:nth-child(1) {
-    bottom: 2px;
-    left: -100%;
-    width: 100%;
-    height: 2px;
-    background: linear-gradient(90deg, transparent, #03f40f);
-    animation: btn-anim1 2s linear infinite;
-  }
+}
+
+.login-box button span:nth-child(1) {
+  bottom: 2px;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #03f40f);
+  animation: btn-anim1 2s linear infinite;
+}

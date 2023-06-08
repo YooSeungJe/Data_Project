@@ -1,7 +1,7 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import DatePicker from 'react-datepicker';
-import "react-datepicker/dist/react-datepicker.css";
-import "./css/_DatePicker.css"
+import 'react-datepicker/dist/react-datepicker.css';
+import './css/_DatePicker.css';
 
 export default function _DatePicker() {
   const [startDate, setStartDate] = useState(null);
@@ -9,13 +9,13 @@ export default function _DatePicker() {
   return (
     <DatePicker
       selected={startDate}
-      onChange={(date) => setStartDate(date)}
+      onChange={date => setStartDate(date)}
       showTimeSelect
-      timeFormat="HH:mm"
+      timeFormat='HH:mm'
       timeIntervals={15}
-      timeCaption="time"
-      dateFormat="MMMM d, yyyy h:mm aa"
-      placeholderText="욕 먹은 날짜"
+      timeCaption='time'
+      dateFormat='MMMM d, yyyy h:mm aa'
+      placeholderText='욕 먹은 날짜'
     />
   );
-};
+}
