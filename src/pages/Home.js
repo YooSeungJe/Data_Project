@@ -94,7 +94,13 @@ function Home() {
             >
               신고
             </p>
-            <p>통계</p>
+            <p
+              onClick={() => {
+                navigate('/stats');
+              }}
+            >
+              통계
+            </p>
           </div>
         )}
       </div>
