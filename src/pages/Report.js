@@ -1,11 +1,10 @@
 import Header from './Header';
 import {useNavigate} from 'react-router-dom';
-import { useState } from 'react';
+import { useState , useEffect } from 'react';
 import './css/Report.css'
 import { FloatingLabel, Form} from 'react-bootstrap';
 import _DatePicker from '../components/_DatePicker';
 import FileUpload from '../components/FileUpload';
-
 import * as Api from '../api.js'
 
 export default function Report () {
@@ -22,9 +21,14 @@ export default function Report () {
     const[attackerId, setAttackerId] = useState('');
     const[content, setContent] = useState('');
     const[violenceAt, setViolenceAt] = useState('');
+    const[reportImage, setReportImage] = useState('');
 
     const handleDateChange = (date) => {
         setViolenceAt(date);
+    }
+
+    const handleReportImage = (reportImage) => {
+        setReportImage(reportImage);
     }
 
     const navigate = useNavigate();
@@ -32,17 +36,19 @@ export default function Report () {
     const handleClick = async(e) => {
         e.preventDefault();
         e.stopPropagation(); // 이벤트 버블링과 이벤트 캡처링을 방지하는 역할이라고 함
-
+        
         const data = {
-            userId : 'elice5', // userId도 구현하기
             attackerId,
             content,
             violenceAt,
+            reportImage,
         }
 
         try {
-            const response = await Api.post('/report/register', data);
-            console.log(response.data);
+            console.log(localStorage.getItem("token"));
+            const response = await Api.postFormData('/report/register', data);
+            console.log(response);
+            return response;
           } catch (error) {
             console.error('POST request failed', error);
           }
@@ -89,7 +95,7 @@ export default function Report () {
                             onChange={(e) => setContent(e.target.value)}
                         />
                     </FloatingLabel>
-                    <FileUpload/>
+                    <FileUpload file={reportImage} handleFile={handleReportImage}/>
                     <div className="container button-box">
                         <div className="row justify-content-center">
                             <div className="col-auto">
@@ -106,4 +112,3 @@ export default function Report () {
     )
 }
 
-// FileUpload 를 통해서 사진을 받아오는 건 아직 구현 X
