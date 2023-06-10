@@ -18,7 +18,7 @@ export const handlers = [
                     userId : 'elice1',
                     attackerId : '갑수',
                     content : '멍청이',
-                    violenceAt : '20020306'
+                    violenceAt : '20020306',
                 },
                 {
                     userId : 'elice2',

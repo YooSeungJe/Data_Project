@@ -7,6 +7,7 @@ import Admin from './pages/Admin';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
 
 function App() {
+  // localStorage.setItem('token', JSON.stringify({ userId: '갑수' })); // 토큰 테스트 나중에 지울 것
   return (
     <div>
       <Router>
