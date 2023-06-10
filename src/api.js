@@ -7,6 +7,7 @@ const instance = axios.create({
   'http://localhost:3001'
 });
 
+
 const postFormData = async (endpoint, data) => {
   const formData = new FormData();
   for (const key in data) {
@@ -43,6 +44,8 @@ const getFormData = async (endpoint, formData) => {
   }
  
 }
+
+
 
 const get = async (url, params) => {
   const token = localStorage.getItem('token');
