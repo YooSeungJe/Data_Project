@@ -7,6 +7,7 @@ const instance = axios.create({
   'http://localhost:3001'
 });
 
+// report에서 신고할 때(formdata)
 const postFormData = async (endpoint, data) => {
   const formData = new FormData();
   for (const key in data) {
@@ -27,6 +28,7 @@ const postFormData = async (endpoint, data) => {
  
 }
 
+// 사진 받아올 때(formdata, blob)
 const getFormData = async (endpoint, formData) => {
   try {
     const response = await instance.get(endpoint, formData,
@@ -44,6 +46,7 @@ const getFormData = async (endpoint, formData) => {
  
 }
 
+// 일반적으로 정보를 받아올 때(json)
 const get = async (url, params) => {
   const token = localStorage.getItem('token');
   try {
