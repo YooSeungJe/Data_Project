@@ -29,4 +29,24 @@ export const handlers = [
             ])
         )
     }),
+
+    rest.get('http://localhost:3001/lolUser/:lolId', (req, res, ctx)=>{
+        return res(
+            ctx.status(200),
+            ctx.json({
+                lol_id : '갑수',
+                report_count: 15,
+                manner_grade: 'Gold',
+            })
+        )
+    }),
+    rest.get('http://localhost:3001/stats/main',(req, res, ctx) => {
+        return res(
+            ctx.status(200),
+            ctx.json({
+                month_count : 10,
+                most_category_name : '여성/가족',
+            })
+        )
+    }),
   ]

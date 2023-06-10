@@ -15,12 +15,11 @@ function Register() {
     const [personalInfoAgree, setPersonalInfoAgree] = useState();
     const [name, setName] = useState();
     const [lolId, setLolId] = useState('');
-
-    
+    const [confirmedPassword, setConfirmedPassword] = useState('');
+    const [passwordMismatch, setPasswordMismatch] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-      
         try {
           const response = await axios.post('http://localhost:3001/user/register', {
             emailId,
@@ -34,8 +33,9 @@ function Register() {
       
           if (response && response.data) {
             console.log(response.data)
-            alert('계정 생성 성공!')
-            navigate('/login')
+            alert('계정생성 성공!')
+            navigate('/')
+            // navigate('/login')
             ; // 성공 응답 확인
             // TODO: 회원가입 성공 시의 동작 추가
           } else {
@@ -72,7 +72,8 @@ function Register() {
           alert('존재하지 않는 닉네임입니다');
         }
       };
-      
+
+
 
     return(
         <div className='back-style'>
@@ -99,17 +100,28 @@ function Register() {
                             required
                         />
                         <label className='email'>이메일</label>
+ 
                         
                     </div>
                     <div className='user-box'>
                         <input
-                            className='password'
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <label>비밀번호</label>
+                        <label>비밀번호(8자 이상)</label>
+                        <input
+                            type="password"
+                            value={confirmedPassword}
+                            onChange={(e) => {
+                              setConfirmedPassword(e.target.value);
+                              setPasswordMismatch(e.target.value !== password);
+                            }}
+                            required
+                        />
+                        <label className='email'>비밀번호 재확인</label>
+                        {passwordMismatch && <p className='password-confirm'>비밀번호가 일치하지 않습니다.</p>}
                     </div>    
                     
                     <div className="user-box">
@@ -124,7 +136,6 @@ function Register() {
                         <button className='confirm-button' onClick={handleConfirmSubmit}>확인</button>
                         <input
                             className='peco-input' 
-                            style={{position:'relative', right:'30px'}}
                             type="text"
                             value={nickname}
                             onChange={(e) => setNickname(e.target.value)}

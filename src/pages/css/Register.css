@@ -4,8 +4,11 @@
   background-image: url('/public/징크스.jpg');
   background-size: cover;
   background-position: center;
-  height: 100vh;
+  height: 130vh;
+  min-height: 1000px;
 }
+
+
 
 .register-form {
   width: 50%;
@@ -64,7 +67,7 @@
 }
 
 .user-box .email {
-  margin-left: 440px;
+  margin-left: 430px;
 }
 
 .user-box .nickname {
@@ -114,6 +117,10 @@
   display: block;
 }
 
+.user-box .peco-input {
+  margin-left: -10px;
+}
+
 @keyframes btn-anim1 {
   0% {
     left: -100%;
@@ -152,6 +159,14 @@
   right: 40px;
 }
 
+.password-confirm {
+  color: red;
+  margin-left: 430px;
+  font-size: 13px;
+  position: absolute;
+  top: 80px;
+}
+
 @media screen and (max-width: 960px) {
   .user-box .password {
     width: 70%;
@@ -168,7 +183,7 @@
   }
 
   .back-style {
-    height: 120vh;
+    height: 170vh;
   }
 
   .user-box {
@@ -181,5 +196,24 @@
 
   .user-box label {
     margin-left: 75px;
+  }
+
+  .user-box .lol-input {
+    margin-left: 70px;
+  }
+
+  .user-box .peco-input {
+    margin-left: 30px;
+  }
+
+  .password-confirm {
+    margin: 0;
+  }
+  .password-confirm{
+    top: 200px;
+    left: 80px;
+  }
+  .back-style .alert-card {
+    left: 32%;
   }
 }
