@@ -16,15 +16,15 @@ export const handlers = [
             ctx.json([
                 {
                     userId : 'elice1',
-                    attackerId : '갑수',
+                    attackerId : '펭수',
                     content : '멍청이',
-                    violenceAt : '20020306',
+                    violenceAt : 'Sat Jun 10 2023 21:15:00 GMT+0900 (한국 표준시)',
                 },
                 {
                     userId : 'elice2',
-                    attackerId : '종수',
+                    attackerId : '빼어날수',
                     content : '바보',
-                    violenceAt : '20020305'
+                    violenceAt : 'Sat Jun 11 2023 20:15:00 GMT+0900 (한국 표준시)'
                 }
             ])
         )
