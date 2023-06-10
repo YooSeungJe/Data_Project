@@ -34,7 +34,7 @@ export default function Report () {
         e.stopPropagation(); // 이벤트 버블링과 이벤트 캡처링을 방지하는 역할이라고 함
 
         const data = {
-            userId : 'elice5',
+            userId : 'elice5', // userId도 구현하기
             attackerId,
             content,
             violenceAt,

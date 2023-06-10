@@ -110,7 +110,7 @@ function Register() {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
-                        <label>비밀번호</label>
+                        <label>비밀번호(8자 이상)</label>
                         <input
                             type="password"
                             value={confirmedPassword}
