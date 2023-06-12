@@ -1,6 +1,6 @@
 import Header from './Header';
 import {useNavigate} from 'react-router-dom';
-import { useState , useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './css/Report.css'
 import { FloatingLabel, Form} from 'react-bootstrap';
 import _DatePicker from '../components/_DatePicker';
@@ -20,12 +20,16 @@ export default function Report () {
 
     const[attackerId, setAttackerId] = useState('');
     const[content, setContent] = useState('');
-    const[violenceAt, setViolenceAt] = useState('');
+    const[violenceAt, setViolenceAt] = useState(new Date());
     const[reportImage, setReportImage] = useState('');
 
     const handleDateChange = (date) => {
         setViolenceAt(date);
     }
+
+    useEffect(()=>{
+        console.log(violenceAt);
+    },[violenceAt])
 
     const handleReportImage = (reportImage) => {
         setReportImage(reportImage);

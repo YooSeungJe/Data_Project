@@ -14,13 +14,14 @@ export default function Admin () {
     const categoryList = ['clean', '기타 혐오', '남성', '성소수자', '악플/욕설', '여성/가족', '연령', '인종/국적', '종교', '지역'];
     const navigate = useNavigate();
 
+    const fetchData = useCallback(async () => {
+      const result = await Api.get('/admin/report');
+      setAsserts(result);
+    },[]);
+
     useEffect(() => {
-        const fetchData = async () => {
-          const result = await Api.get('/admin/report');
-          setAsserts(result);
-        };  
         fetchData();
-    }, []);
+    }, [fetchData]);
 
     const getReportList = useCallback(async () => {
       if(reportId !== ''){
@@ -31,13 +32,11 @@ export default function Admin () {
       }
     }, [reportId]);
 
-    useEffect(() => {
-        getReportList();
-    }, [getReportList]);
-
     const handleItemClick = (assert) => {
-      setSelectedItem(assert);
       setReportId(assert.id);
+      getReportList();
+      const addedAssert = {...assert, 'reportLists': reportList};
+      setSelectedItem(addedAssert);
     };
 
     const handleCategorySelect = async (selectedCategory, content) => {
@@ -105,7 +104,7 @@ export default function Admin () {
               <h2>{selectedItem.attacker_id}</h2>
               <p>{selectedItem.content}</p>
               <p>{selectedItem.violence_at}</p>
-              {reportList && (reportList.map((report, index)=>{
+              {selectedItem.reportLists && (selectedItem.reportLists.map((report, index)=>{
                 return (
                   <div key={index}>
                     {report.content}
@@ -115,7 +114,7 @@ export default function Admin () {
               }))}
               <ImageFromBlob blob={blob}/>
               <Button variant="danger">확인</Button>
-              <Button variant="warning" onClick={()=>{navigate('/admin')}}>취소</Button>
+              <Button variant="warning" onClick={()=>{setSelectedItem({})}}>취소</Button>
             </div>
           )}
         </Col>

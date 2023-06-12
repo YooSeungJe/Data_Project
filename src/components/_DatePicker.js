@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import "./css/_DatePicker.css"
@@ -13,7 +12,7 @@ export default function _DatePicker({date, onDateChange}) {
       timeFormat="HH:mm"
       timeIntervals={15}
       timeCaption="time"
-      dateFormat="MMMM d, yyyy h:mm aa"
+      dateFormat="yyyy-MM-dd"
       placeholderText="욕 먹은 날짜"
     />
   );
