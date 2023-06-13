@@ -15,27 +15,32 @@ function Home() {
   const [nicknameInput, setNicknameInput] = useState('');
   const [lolUser, setLolUser] = useState(null);
   const [statsMain, setStatsMain] = useState(null);
+  
   const handleClick = () => {
     setShowOptions(!showOptions);
   };
 
   const handleLoginClick = () => {
-    if (isLoggedIn) {
-      // 로그아웃 처리
-      localStorage.removeItem('token');
-      setIsLoggedIn(false);
-      alert('로그아웃 되었습니다.');
-    } else {
+    if (!isLoggedIn) {
       navigate('/login');
     }
   };
+
+  const handleLogoutClick = () => {
+    if (isLoggedIn) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('emailId');
+      setIsLoggedIn(false);
+      alert('로그아웃 되었습니다')
+    }
+  }
 
 
 
   const handleButtonClick = async () => {
     if (nicknameInput.trim() !== '') {
       try {
-        const response1 = await axios.post(`http://localhost:3001/lolUser/${nicknameInput}`);
+        const response1 = await axios.get(`http://localhost:3001/lolUser/${nicknameInput}`);
         const response2 = await axios.get(`http://localhost:3001/stats/basic/${nicknameInput}`);
   
         setLolUser(response1.data);
@@ -46,6 +51,13 @@ function Home() {
       }
     }
   };
+
+const handleDetailView = () => {
+  if (lolUser) {
+    navigate(`/detail/${encodeURIComponent(lolUser.lol_id)}`);
+  }
+};
+
   
   
 
@@ -64,7 +76,7 @@ function Home() {
       return (
         <div style={{ display: 'flex' }}>
           <p className='login-button' onClick={()=>navigate('/my')}>마이페이지</p>
-          <p className='register-button' onClick={handleLoginClick}>
+          <p className='register-button' onClick={handleLogoutClick}>
             로그아웃
           </p>
         </div>
@@ -90,7 +102,7 @@ function Home() {
 
   const 징크스 = process.env.PUBLIC_URL + '/징크스.jpg';
 
-  const divStyle = {
+  const jinxImage = {
     backgroundImage: `url(${징크스})`,
     backgroundSize: 'cover',
     backgroundPosition: 'center',
@@ -101,7 +113,7 @@ function Home() {
   const silver_tier = process.env.PUBLIC_URL + '/실버.png';
   const gold_tier = process.env.PUBLIC_URL + '/골드.png';
   const gentle_tier = process.env.PUBLIC_URL + '/젠틀.png';
-  const divStyle2 = {
+  const tierImage = {
     backgroundPosition: 'center',
     backgroundSize: 'cover',
     height: '150px',
@@ -121,7 +133,7 @@ function Home() {
 
 
   return (
-    <div style={divStyle}>
+    <div style={jinxImage}>
       <div className='main-bar'>
         <IoMenu className='iomenu' onClick={handleClick} />
         <div className='login-container'>{renderLoginButton()}</div>
@@ -177,23 +189,9 @@ function Home() {
       {showUserCard && (
         <div className='search-card'>
           {lolUser && statsMain && (
-            // <div className='row'>
-            //   <div className='col-3 left-card'>
-            //     <div style={{padding:'10px'}}>
-            //       <div style={divStyle2}></div>
-            //     </div>
-            //     <p style={{textAlign:'center', fontWeight:'bolder'}}>{lolUser.lol_id}</p>
-            //   </div>
-            //   <div className='col-9' style={{textAlign:'center', paddingTop:'35px'}}>
-            //     <p>이 유저는 총 <span style={{color:'red'}}>{lolUser.report_count}회</span>의 신고를 당했습니다</p>
-            //     <p>이번달은 총 <span style={{color:'red'}}>{statsMain.score_count}회</span>의 신고를 당했습니다.</p>
-            //     <p>가장 많이 한 욕설의 종류는 <span style={{color:'red'}}>{statsMain.category_name}</span>입니다.</p>
-            //     <p onClick={()=>{navigate('/detail')}} style={{textAlign:'end', marginRight:'5px',cursor:'pointer'}}>상세보기<TbArrowBigRightFilled/></p>
-            //   </div>
-            // </div>
             <div className='container'>
               <div className='row'>
-                <div className='col-6' style={divStyle2}></div>
+                <div className='col-6' style={tierImage}></div>
                 <div className='col-6 user-nickname'>
                   <div>
                     {lolUser.lol_id}
@@ -201,20 +199,20 @@ function Home() {
                   <div className='row user-info'>
                     <div className='col-4'>
                       <h4>Total</h4>
-                      <p style={{marginLeft:'12px', color:'red'}}>{lolUser.report_count}</p>  
+                      <p style={{marginLeft:'9px', color:'red', fontSize:'25px'}}>{lolUser.report_count}</p>  
                     </div>  
                     <div className='col-4'>
                       <h4>Month</h4>
-                      <p style={{marginLeft:'16px', color:'blue'}}>{statsMain.score_count}</p>
+                      <p style={{marginLeft:'14px', color:'blue', fontSize:'25px'}}>{statsMain.score_count}</p>
                     </div>  
                     <div className='col-4'>
-                      <h4 style={{fontSize:'13px'}}>Most used</h4> 
+                      <h4 style={{fontSize:'13px', marginBottom:'16px'}}>Most used</h4> 
                       <p>{statsMain.category_name}</p> 
                     </div>  
                   </div> 
                 </div>
               </div>
-              <button className='request' onClick={()=>{navigate('/detail')}}>상세보기</button>
+              <button className='request' onClick={handleDetailView}>상세보기</button>
             </div>  
 
           )}

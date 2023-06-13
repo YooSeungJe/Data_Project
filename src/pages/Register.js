@@ -17,7 +17,9 @@ function Register() {
     const [lolId, setLolId] = useState('');
     const [confirmedPassword, setConfirmedPassword] = useState('');
     const [passwordMismatch, setPasswordMismatch] = useState(false);
-
+    const MALE = 1;
+    const FEMALE = 0;
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -149,14 +151,14 @@ function Register() {
                             type="radio"
                             name="gender"
                             value={1}
-                            checked={isMale === 1}
+                            checked={isMale === MALE}
                             onChange={() => setIsMale(1)}
                         ></input></p>
                         <p style={{marginLeft:'30px'}}>여자<input 
                             type="radio"
                             name="gender"
                             value={0}
-                            checked={isMale === 0}
+                            checked={isMale === FEMALE}
                             onChange={() => setIsMale(0)}
                         ></input></p>
                     </div>
