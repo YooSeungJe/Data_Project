@@ -35,7 +35,7 @@ function Home() {
   const handleButtonClick = async () => {
     if (nicknameInput.trim() !== '') {
       try {
-        const response1 = await axios.post(`http://localhost:3001/lolUser/${nicknameInput}`);
+        const response1 = await axios.get(`http://localhost:3001/lolUser/${nicknameInput}`);
         const response2 = await axios.get(`http://localhost:3001/stats/basic/${nicknameInput}`);
   
         setLolUser(response1.data);
