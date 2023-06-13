@@ -8,6 +8,7 @@ import Statistics from './pages/Statics';
 import My from './pages/My';
 import Detail from './pages/Detail';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
+import About from './pages/About';
 
 function App() {
   // localStorage.setItem('token', JSON.stringify({ userId: '갑수' })); // 토큰 테스트 나중에 지울 것
@@ -23,6 +24,7 @@ function App() {
           <Route path='/stats' element={<Statistics />} />
           <Route path='/my' element={<My />} />
           <Route path='/detail' element={<Detail />} />
+          <Route path='/about' element={<About />} />
         </Routes>
       </Router>
     </div>
