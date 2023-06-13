@@ -1,6 +1,15 @@
+.my-back {
+    background-image: url('/public/아케인.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 150vh;
+    min-height: 1000px;
+    width: 100%;
+}
+
+
 .user-container {
     width: 100%;
-    background-color: #E4E4E4;
     height: 300px;
     display: flex;
 }
@@ -23,11 +32,20 @@
     margin-left: 20px;
     font-size: 20px;
     font-weight: 600;
+    color: white;
 }
 
 .pie-chart {
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     margin-left: 120px;
+    padding-top: 20px;
+}
+
+.category-chart {
+    padding-top: 50px;
+    width: 700px;
+    height: 700px;
+    padding-left: 20px;
 }
 
 @media screen and (max-width: 960px) {
@@ -47,5 +65,13 @@
 
     .pie-chart {
         margin-left: 270px;
+    }
+
+    .category-chart {
+        padding-left: 70px;
+    }
+
+    .my-back {
+        height: 300vh;
     }
 }
