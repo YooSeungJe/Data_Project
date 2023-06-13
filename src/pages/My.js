@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Header from './Header';
 import './css/My.css';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar, Pie, Doughnut } from 'react-chartjs-2';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
@@ -63,7 +63,8 @@ function My() {
       {
         label: '신고 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
-        backgroundColor: '#4641D9',
+        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
         borderDash:[0],
       },
     ],
@@ -91,13 +92,13 @@ function My() {
   }, []);
 
   const userStatus = {
-    labels: userStatusData.map(item => item.status),
+    labels: ['승인', '미승인'],
     datasets: [
       {
         label:'건수',
         data: userStatusData.map(item=> item.count),
-        backgroundColor:['lightblue','#FF6C6C'],
-        borderColor:['lightblue','#FF6C6C'],
+        backgroundColor:['#4374D9','#FF5A5A'],
+        borderColor:['#4374D9','#FF5A5A'],
         borderWidth:1,
       },
     ],
@@ -118,7 +119,7 @@ function My() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setUserReportData(response5.data.userReportedCnt);
+          setUserReportData(response5.data);
         }
       } catch (error) {
         console.error(error);
@@ -129,16 +130,20 @@ function My() {
 
 
   const userReport = {
+    labels:['피신고', '신고'],
     datasets: [
       {
         label:'건수',
-        data: [userReportData],
-        backgroundColor:['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
-        borderColor:['rgba(54, 162, 235, 1)','rgba(255, 99, 132, 1)'],
+        data: userStatusData.map(item=> item.count),
+        backgroundColor:['#FF5A5A','#4374D9'],
+        borderColor:['#FF5A5A','#4374D9'],
         borderWidth:1,
       },
     ],
   };
+
+
+
 
 
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
@@ -161,55 +166,35 @@ function My() {
         ? `url(${gentle_tier})`
         : '',
   };
+  
+  
 
 
   return (
-    <div>
+    <div className="my-back">
       <div>
         <Header />
       </div>
       <div className="user-container">
-        {/* <div className="row my-user">
-          <div className="col-12 col-lg-2 user-left">
-            <p style={divStyle}></p>
-          </div>
-          <div className="col-12 col-lg-4 user-middle">
-            <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
-            <p>이번달은 총 <span style={{color:'blue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
-            <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
-          </div>
-          <div className="col-12 col-lg-3">
-            <Pie data={userStatus} style={{height:'100px'}}/>
-          </div>
-          <div className="col-12 col-lg-3">
-            <Pie data={userStatus} style={{height:'100px'}}/>
-          </div>
-          <div className="col-12 col-lg-5">
-            <Bar data={abuseCntByCategory} style={{height:'180px', width:'400px'}}/>
-          </div>
-          <div className="col-12 col-lg-7">
-            d
-          </div>
-        </div> */}
         <div style={divStyle} className="tier-image"></div>
         <div className="middle-text">
           <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
-          <p>이번달은 총 <span style={{color:'blue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
+          <p>이번달은 총 <span style={{color:'skyblue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
           <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
         </div>
         <div className="pie-chart">
-            <Pie data={userStatus} />
+            <Doughnut data={userStatus} options={{color:'white'}}/>
         </div>
         <div className="pie-chart">
-            <Pie data={userStatus}/>
+            <Doughnut data={userReport} options={{color:'white'}}/>
         </div>
       </div>
       <div className="chart-container">
-        <div>
-          <Bar data={abuseCntByCategory}/>
+        <div className="category-chart">
+          <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
         </div>
         <div>
-          d
+          신고 목록
         </div>
       </div>
     </div>
