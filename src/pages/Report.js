@@ -27,10 +27,6 @@ export default function Report () {
         setViolenceAt(date);
     }
 
-    useEffect(()=>{
-        console.log(violenceAt);
-    },[violenceAt])
-
     const handleReportImage = (reportImage) => {
         setReportImage(reportImage);
     }
@@ -41,10 +37,11 @@ export default function Report () {
         e.preventDefault();
         e.stopPropagation(); // 이벤트 버블링과 이벤트 캡처링을 방지하는 역할이라고 함
         
+        const formattedDate = new Date(violenceAt.getTime() + 1000 * 60 * 60 * 9).toISOString()
         const data = {
             attackerId,
             content,
-            violenceAt,
+            violenceAt : formattedDate,
             reportImage,
         }
 
@@ -88,7 +85,7 @@ export default function Report () {
                     </div>
                     <FloatingLabel 
                         controlId="offense_content" 
-                        label="욕설 내용"
+                        label="상황 설명"
                         className="mb-3"
                     >
                         <Form.Control
@@ -116,3 +113,4 @@ export default function Report () {
     )
 }
 
+// 확인 버튼 누르고, reset 되고, alert 창으로 등록완료 되었다고 해주기
