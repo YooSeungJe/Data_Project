@@ -1,12 +1,17 @@
 import React from "react";
 import Header from "./Header";
+import { useParams } from "react-router-dom";
 function Detail() {
+
+    const { id } = useParams();
     return(
         <div>
             <div>
                 <Header/>
             </div>
-            <div className="my-user"></div>
+            <div>
+                <p>{id}</p>
+            </div>
         </div>
     )
 }

@@ -16,12 +16,14 @@ function Login() {
         emailId,
         password,
       });
+
       console.log(response.data);
       const { token } = response.data;
 
       if (token) {
         // 토큰 저장 등 로그인 처리
         localStorage.setItem('token', token);
+        localStorage.setItem('emailId', emailId);
         alert('로그인 성공!');
         navigate('/');
       } else {
