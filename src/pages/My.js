@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import React, { useState, useEffect } from 'react';
+import * as Api from '../api.js';
 import Header from './Header';
 import './css/My.css';
 import { Bar, Pie } from 'react-chartjs-2';
@@ -11,21 +11,16 @@ function My() {
   const [userStatusData, setUserStatusData] = useState([]);
   const [userReportData, setUserReportData] = useState([]);
 
-
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('token');
 
         if (token) {
-          const response1 = await axios.get('http://localhost:3001/lolUser/my', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserInfo(response1.data);
-          const response2 = await axios.get(`http://localhost:3001/stats/basic/${response1.data.lol_id}`);
-          setStats(response2.data);
+          const response1 = await Api.get('/lolUser/my');
+          setUserInfo(response1);
+          const response2 = await Api.get(`/stats/basic/${response1.lol_id}`);
+          setStats(response2);
         }
       } catch (error) {
         console.error(error);
@@ -37,26 +32,23 @@ function My() {
 
   useEffect(() => {
     const fetchUserReportedByCategory = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const emailId = localStorage.getItem('emailId');
+      try {
+        const token = localStorage.getItem('token');
+        const emailId = localStorage.getItem('emailId');
 
-
-      if (token && emailId) {
-        const response3 = await axios.get(`http://localhost:3001/stats/userReportedByCategory/${emailId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAbuseCntByCategoryData(response3.data);
+        if (token && emailId) {
+          const response3 = await Api.get(
+            `/stats/userReportedByCategory/${emailId}`
+          );
+          setAbuseCntByCategoryData(response3);
+        }
+      } catch (error) {
+        console.error(error);
       }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+    };
     fetchUserReportedByCategory();
   }, []);
-  
+
   const abuseCntByCategory = {
     labels: abuseCntByCategoryData.map(item => item.category_name),
     datasets: [
@@ -64,82 +56,71 @@ function My() {
         label: '신고 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
         backgroundColor: '#4641D9',
-        borderDash:[0],
+        borderDash: [0],
       },
     ],
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const fetchUserReportedByStatus = async () => {
       try {
         const token = localStorage.getItem('token');
         const emailId = localStorage.getItem('emailId');
 
-        if(token && emailId) {
-          const response4 = await axios.get(`http://localhost:3001/stats/userReportCntByStatus/${emailId}`,{
-            headers : {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserStatusData(response4.data);
+        if (token && emailId) {
+          const response4 = await Api.get(
+            `/stats/userReportCntByStatus/${emailId}`
+          );
+          setUserStatusData(response4);
         }
       } catch (error) {
         console.error(error);
       }
     };
-      fetchUserReportedByStatus();
+    fetchUserReportedByStatus();
   }, []);
 
   const userStatus = {
     labels: userStatusData.map(item => item.status),
     datasets: [
       {
-        label:'건수',
-        data: userStatusData.map(item=> item.count),
-        backgroundColor:['lightblue','#FF6C6C'],
-        borderColor:['lightblue','#FF6C6C'],
-        borderWidth:1,
+        label: '건수',
+        data: userStatusData.map(item => item.count),
+        backgroundColor: ['lightblue', '#FF6C6C'],
+        borderColor: ['lightblue', '#FF6C6C'],
+        borderWidth: 1,
       },
     ],
   };
 
-  
-
-
-  useEffect(()=>{
+  useEffect(() => {
     const fetchUserReport = async () => {
       try {
         const token = localStorage.getItem('token');
         const emailId = localStorage.getItem('emailId');
 
-        if(token && emailId) {
-          const response5 = await axios.get(`http://localhost:3001/stats/userReportCnt/${emailId}`,{
-            headers : {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserReportData(response5.data.userReportedCnt);
+        if (token && emailId) {
+          const response5 = await Api.get(`/stats/userReportCnt/${emailId}`);
+          setUserReportData(response5.userReportedCnt);
         }
       } catch (error) {
         console.error(error);
       }
     };
-      fetchUserReport();
+    fetchUserReport();
   }, []);
-
 
   const userReport = {
     datasets: [
       {
-        label:'건수',
+        label: '건수',
         data: [userReportData],
-        backgroundColor:['rgba(54, 162, 235, 0.2)','rgba(255, 99, 132, 0.2)'],
-        borderColor:['rgba(54, 162, 235, 1)','rgba(255, 99, 132, 1)'],
-        borderWidth:1,
+        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
+        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 1,
       },
     ],
   };
-
 
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
   const silver_tier = process.env.PUBLIC_URL + '/실버.png';
@@ -162,13 +143,12 @@ function My() {
         : '',
   };
 
-
   return (
-    <div>
+    <div className='my-back'>
       <div>
         <Header />
       </div>
-      <div className="user-container">
+      <div className='user-container'>
         {/* <div className="row my-user">
           <div className="col-12 col-lg-2 user-left">
             <p style={divStyle}></p>
@@ -191,30 +171,39 @@ function My() {
             d
           </div>
         </div> */}
-        <div style={divStyle} className="tier-image"></div>
-        <div className="middle-text">
-          <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
-          <p>이번달은 총 <span style={{color:'blue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
-          <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
+        <div style={divStyle} className='tier-image'></div>
+        <div className='middle-text'>
+          <p>
+            <span style={{ fontSize: '25px' }}>{userInfo.lol_id}</span>님의 총
+            피신고 건수는{' '}
+            <span style={{ color: 'red' }}>{userInfo.report_count}</span>회
+            입니다.
+          </p>
+          <p>
+            이번달은 총{' '}
+            <span style={{ color: 'blue' }}>{stats.score_count}</span>회의
+            신고를 당하셨습니다.
+          </p>
+          <p>
+            욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이
+            사용하셨습니다.
+          </p>
         </div>
-        <div className="pie-chart">
-            <Pie data={userStatus} />
+        <div className='pie-chart'>
+          <Pie data={userStatus} />
         </div>
-        <div className="pie-chart">
-            <Pie data={userStatus}/>
+        <div className='pie-chart'>
+          <Pie data={userStatus} />
         </div>
       </div>
-      <div className="chart-container">
+      <div className='chart-container'>
         <div>
-          <Bar data={abuseCntByCategory}/>
+          <Bar data={abuseCntByCategory} />
         </div>
-        <div>
-          d
-        </div>
+        <div>d</div>
       </div>
     </div>
   );
 }
 
 export default My;
-

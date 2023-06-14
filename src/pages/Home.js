@@ -5,13 +5,13 @@ import { TbListSearch, TbArrowBigRightFilled } from 'react-icons/tb';
 import './css/Home.css';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
-import axios from 'axios';
+import * as Api from '../api.js';
 
 function Home() {
   const [showOptions, setShowOptions] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showUserCard, setShowUserCard] = useState(false);
-  const [nicknameInput, setNicknameInput] = useState('');
+  const [nickname, setNickname] = useState('');
   const [lolUser, setLolUser] = useState(null);
   const [statsMain, setStatsMain] = useState(null);
 
@@ -35,17 +35,13 @@ function Home() {
   };
 
   const handleButtonClick = async () => {
-    if (nicknameInput.trim() !== '') {
+    if (nickname.trim() !== '') {
       try {
-        const response1 = await axios.get(
-          `http://localhost:3001/lolUser/${nicknameInput}`
-        );
-        const response2 = await axios.get(
-          `http://localhost:3001/stats/basic/${nicknameInput}`
-        );
+        const response1 = await Api.get(`/lolUser/${nickname}`);
+        const response2 = await Api.get(`/stats/basic/${nickname}`);
 
-        setLolUser(response1.data);
-        setStatsMain(response2.data);
+        setLolUser(response1);
+        setStatsMain(response2);
         setShowUserCard(!showUserCard);
       } catch (error) {
         console.log('error', error);
@@ -140,6 +136,13 @@ function Home() {
           <div className='menu'>
             <p
               onClick={() => {
+                navigate('/about');
+              }}
+            >
+              소개
+            </p>
+            <p
+              onClick={() => {
                 navigate('/report');
               }}
             >
@@ -174,7 +177,7 @@ function Home() {
           placeholder='닉네임'
           aria-label="Recipient's username"
           aria-describedby='button-addon2'
-          onChange={e => setNicknameInput(e.target.value)}
+          onChange={e => setNickname(e.target.value)}
         />
         <button
           onClick={handleButtonClick}

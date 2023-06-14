@@ -3,7 +3,7 @@ import { IoMenu } from 'react-icons/io5';
 import { useState, useEffect } from 'react';
 import { TbListSearch } from 'react-icons/tb';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import * as Api from '../api.js';
 
 export default function Header() {
   const navigate = useNavigate();
@@ -16,15 +16,11 @@ export default function Header() {
   const handleButtonClick = async () => {
     if (nicknameInput.trim() !== '') {
       try {
-        const response1 = await axios.get(
-          `http://localhost:3001/lolUser/${nicknameInput}`
-        );
-        const response2 = await axios.get(
-          `http://localhost:3001/stats/basic/${nicknameInput}`
-        );
+        const response1 = await Api.get(`/lolUser/${nicknameInput}`);
+        const response2 = await Api.get(`/stats/basic/${nicknameInput}`);
 
-        setLolUser(response1.data);
-        setStatsMain(response2.data);
+        setLolUser(response1);
+        setStatsMain(response2);
         setShowUserCard(!showUserCard);
       } catch (error) {
         alert(error.response.data);

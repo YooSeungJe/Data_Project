@@ -1,31 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import './css/Detail.css';
+import * as Api from '../api.js';
 
 function Detail() {
   const { id } = useParams();
-  const [userInfo, setUserInfo] = useState('');
-  const [stats, setStats] = useState('');
+  const [lolUser, setLolUser] = useState('');
+  const [statsMain, setStatsMain] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:3001/lolUser/${id}`)
-      .then(response => {
-        setUserInfo(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    axios
-      .get(`http://localhost:3001/stats/basic/${id}`)
-      .then(response => {
-        setStats(response.data);
-      })
-      .catch(error => {
-        console.error(error);
-      });
-  }, [id]);
+    const fetchLolUser = async () => {
+      if (id.trim() !== '') {
+        try {
+          const response1 = await Api.get(`/lolUser/${id}`);
+          const response2 = await Api.get(`/stats/basic/${id}`);
+
+          setLolUser(response1);
+          setStatsMain(response2);
+        } catch (error) {
+          console.log('error', error);
+        }
+      }
+    };
+    fetchLolUser();
+  }, []);
 
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
   const silver_tier = process.env.PUBLIC_URL + '/실버.png';
@@ -37,19 +36,19 @@ function Detail() {
     width: '190px',
 
     backgroundImage:
-      userInfo && userInfo.manner_grade === 'bronze'
+      lolUser && lolUser.manner_grade === 'bronze'
         ? `url(${bronze_tier})`
-        : userInfo && userInfo.manner_grade === 'silver'
+        : lolUser && lolUser.manner_grade === 'silver'
         ? `url(${silver_tier}})`
-        : userInfo && userInfo.manner_grade === 'gold'
+        : lolUser && lolUser.manner_grade === 'gold'
         ? `url(${gold_tier})`
-        : userInfo && userInfo.manner_grade === 'Gentle'
+        : lolUser && lolUser.manner_grade === 'Gentle'
         ? `url(${gentle_tier})`
         : '',
   };
-  console.log(stats);
+
   return (
-    <div>
+    <div className='my-back'>
       <div>
         <Header />
       </div>
@@ -57,18 +56,17 @@ function Detail() {
         <div style={divStyle} className='tier-image'></div>
         <div className='middle-text'>
           <p>
-            <span style={{ fontSize: '25px' }}>{userInfo.lol_id}</span>님의 총
-            피신고 건수는{' '}
-            <span style={{ color: 'red' }}>{userInfo.report_count}</span>회
+            <span style={{ fontSize: '25px' }}>{id}</span>님의 총 피신고 건수는{' '}
+            <span style={{ color: 'red' }}>{lolUser.report_count}</span>회
             입니다.
           </p>
           <p>
             이번달은 총{' '}
-            <span style={{ color: 'blue' }}>{stats.score_count}</span>회의
-            신고를 당하셨습니다.
+            <span style={{ color: 'skyblue' }}>{statsMain.score_count}</span>
+            회의 신고를 당하셨습니다.
           </p>
           <p>
-            욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이
+            욕설 중 `{statsMain.category_name}`에 관한 욕설을 가장 많이
             사용하셨습니다.
           </p>
         </div>
