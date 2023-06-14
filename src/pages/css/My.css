@@ -35,17 +35,23 @@
     color: white;
 }
 
-.pie-chart {
-    padding-bottom: 20px;
+.left-pie-chart {
+    padding-bottom: 25px;
     margin-left: 120px;
     padding-top: 20px;
+}
+
+.right-pie-chart {
+    padding-bottom: 30px;
+    margin-left: 120px;
+    padding-top: 30px;
 }
 
 .category-chart {
     padding-top: 50px;
     width: 700px;
     height: 700px;
-    padding-left: 20px;
+    padding-left: 40px;
 }
 
 @media screen and (max-width: 960px) {
@@ -63,8 +69,12 @@
         margin: 0 auto;
     }
 
-    .pie-chart {
-        margin-left: 270px;
+    .left-pie-chart {
+        margin-left: 280px;
+    }
+
+    .right-pie-chart {
+        margin-left: 290px;
     }
 
     .category-chart {

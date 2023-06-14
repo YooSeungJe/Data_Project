@@ -1,26 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import * as Api from '../api.js';
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
 import Header from './Header';
 import './css/My.css';
-import { Bar, Pie } from 'react-chartjs-2';
+import {Doughnut } from 'react-chartjs-2';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
   const [stats, setStats] = useState('');
   const [abuseCntByCategoryData, setAbuseCntByCategoryData] = useState([]); // 신고된 카테고리 누적횟수
   const [userStatusData, setUserStatusData] = useState([]);
-  const [userReportData, setUserReportData] = useState([]);
-
+  const [userReportedData, setUserReportedData] = useState([]);
+  const [userReportingData, setUserReportingData] = useState([]);
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
         const token = localStorage.getItem('token');
 
         if (token) {
-          const response1 = await Api.get('/lolUser/my');
-          setUserInfo(response1);
-          const response2 = await Api.get(`/stats/basic/${response1.lol_id}`);
-          setStats(response2);
+          const response1 = await axios.get('http://localhost:3001/lolUser/my', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserInfo(response1.data);
+          const response2 = await axios.get(`http://localhost:3001/stats/basic/${response1.data.lol_id}`);
+          setStats(response2.data);
         }
       } catch (error) {
         console.error(error);
@@ -32,95 +36,117 @@ function My() {
 
   useEffect(() => {
     const fetchUserReportedByCategory = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const emailId = localStorage.getItem('emailId');
+    try {
+      const token = localStorage.getItem('token');
+      const emailId = localStorage.getItem('emailId');
 
-        if (token && emailId) {
-          const response3 = await Api.get(
-            `/stats/userReportedByCategory/${emailId}`
-          );
-          setAbuseCntByCategoryData(response3);
-        }
-      } catch (error) {
-        console.error(error);
+
+      if (token && emailId) {
+        const response3 = await axios.get(`http://localhost:3001/stats/userReportedByCategory/${emailId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setAbuseCntByCategoryData(response3.data);
       }
-    };
+    } catch (error) {
+      console.error(error);
+    }
+  };
     fetchUserReportedByCategory();
   }, []);
-
+  
   const abuseCntByCategory = {
     labels: abuseCntByCategoryData.map(item => item.category_name),
     datasets: [
       {
         label: '신고 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
-        backgroundColor: '#4641D9',
-        borderDash: [0],
+        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderDash:[0],
       },
     ],
   };
 
-  useEffect(() => {
+  useEffect(()=>{
     const fetchUserReportedByStatus = async () => {
       try {
         const token = localStorage.getItem('token');
         const emailId = localStorage.getItem('emailId');
 
-        if (token && emailId) {
-          const response4 = await Api.get(
-            `/stats/userReportCntByStatus/${emailId}`
-          );
-          setUserStatusData(response4);
+        if(token && emailId) {
+          const response4 = await axios.get(`http://localhost:3001/stats/userReportCntByStatus/${emailId}`,{
+            headers : {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserStatusData(response4.data);
         }
       } catch (error) {
         console.error(error);
       }
     };
-    fetchUserReportedByStatus();
+      fetchUserReportedByStatus();
   }, []);
 
   const userStatus = {
-    labels: userStatusData.map(item => item.status),
+    labels: ['미승인', '승인', '대기중'],
     datasets: [
       {
-        label: '건수',
-        data: userStatusData.map(item => item.count),
-        backgroundColor: ['lightblue', '#FF6C6C'],
-        borderColor: ['lightblue', '#FF6C6C'],
-        borderWidth: 1,
+        label:'건수',
+        data: userStatusData.map(item=> item.count),
+        backgroundColor:['#FF5A5A','#4374D9','#A6A6A6'],
+        borderColor:['#FF5A5A','#4374D9','#A6A6A6'],
+        borderWidth:1,
       },
     ],
   };
 
-  useEffect(() => {
+  
+
+
+  useEffect(()=>{
     const fetchUserReport = async () => {
       try {
         const token = localStorage.getItem('token');
         const emailId = localStorage.getItem('emailId');
 
-        if (token && emailId) {
-          const response5 = await Api.get(`/stats/userReportCnt/${emailId}`);
-          setUserReportData(response5.userReportedCnt);
+        if(token && emailId) {
+          const response5 = await axios.get(`http://localhost:3001/stats/userReportCnt/${emailId}`,{
+            headers : {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          setUserReportedData(response5.data.userReportedCnt);
+          setUserReportingData(response5.data.userReportingCnt);
         }
       } catch (error) {
         console.error(error);
       }
     };
-    fetchUserReport();
+
+      fetchUserReport();
+
   }, []);
 
+
   const userReport = {
+    labels:['신고', '피신고'],
     datasets: [
       {
-        label: '건수',
-        data: [userReportData],
-        backgroundColor: ['rgba(54, 162, 235, 0.2)', 'rgba(255, 99, 132, 0.2)'],
-        borderColor: ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)'],
-        borderWidth: 1,
+        label:'건수',
+        data: [userReportingData.map(item=> item.count), userReportedData.map(item=> item.count)],
+        backgroundColor:['#4374D9','#FF5A5A'],
+        borderColor:['#4374D9','#FF5A5A'],
+        borderWidth:1,
       },
     ],
   };
+
+
+
+
 
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
   const silver_tier = process.env.PUBLIC_URL + '/실버.png';
@@ -142,68 +168,42 @@ function My() {
         ? `url(${gentle_tier})`
         : '',
   };
+  
+  
+
 
   return (
-    <div className='my-back'>
+    <div className="my-back">
       <div>
         <Header />
       </div>
-      <div className='user-container'>
-        {/* <div className="row my-user">
-          <div className="col-12 col-lg-2 user-left">
-            <p style={divStyle}></p>
-          </div>
-          <div className="col-12 col-lg-4 user-middle">
-            <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
-            <p>이번달은 총 <span style={{color:'blue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
-            <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
-          </div>
-          <div className="col-12 col-lg-3">
-            <Pie data={userStatus} style={{height:'100px'}}/>
-          </div>
-          <div className="col-12 col-lg-3">
-            <Pie data={userStatus} style={{height:'100px'}}/>
-          </div>
-          <div className="col-12 col-lg-5">
-            <Bar data={abuseCntByCategory} style={{height:'180px', width:'400px'}}/>
-          </div>
-          <div className="col-12 col-lg-7">
-            d
-          </div>
-        </div> */}
-        <div style={divStyle} className='tier-image'></div>
-        <div className='middle-text'>
-          <p>
-            <span style={{ fontSize: '25px' }}>{userInfo.lol_id}</span>님의 총
-            피신고 건수는{' '}
-            <span style={{ color: 'red' }}>{userInfo.report_count}</span>회
-            입니다.
-          </p>
-          <p>
-            이번달은 총{' '}
-            <span style={{ color: 'blue' }}>{stats.score_count}</span>회의
-            신고를 당하셨습니다.
-          </p>
-          <p>
-            욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이
-            사용하셨습니다.
-          </p>
+      <div className="user-container">
+        <div style={divStyle} className="tier-image"></div>
+        <div className="middle-text">
+          <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
+          <p>이번달은 총 <span style={{color:'skyblue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
+          <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
         </div>
-        <div className='pie-chart'>
-          <Pie data={userStatus} />
+        <div className="left-pie-chart">
+            <Doughnut data={userStatus} options={{color:'white'}}/>
         </div>
-        <div className='pie-chart'>
-          <Pie data={userStatus} />
+        <div className="right-pie-chart">
+            <Doughnut data={userReport} options={{color:'white'}}/>
         </div>
       </div>
-      <div className='chart-container'>
-        <div>
-          <Bar data={abuseCntByCategory} />
+      <div className="chart-container">
+        <div className="category-chart">
+          <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
         </div>
-        <div>d</div>
+        <div>
+          신고 목록
+        </div>
       </div>
     </div>
   );
 }
 
 export default My;
+
+
+
