@@ -11,6 +11,9 @@ function My() {
   const [userStatusData, setUserStatusData] = useState([]);
   const [userReportedData, setUserReportedData] = useState([]);
   const [userReportingData, setUserReportingData] = useState([]);
+
+
+
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -91,7 +94,7 @@ function My() {
   }, []);
 
   const userStatus = {
-    labels: ['미승인', '승인', '대기중'],
+    labels: userStatusData.map(item=> item.status),
     datasets: [
       {
         label:'건수',

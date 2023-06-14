@@ -42,7 +42,7 @@ function Detail() {
     }, []);
     
     const abuseCntByCategory = {
-        labels: ['clean', '악플/욕설', '여성/가족', '연령', '남성', '지역', '종교'],
+        labels: categoryData.map(item => item.categoryName),
         datasets: [
           {
             label: '신고 횟수',
