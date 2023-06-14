@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Header from './Header';
 import { Bar, Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
@@ -165,17 +166,22 @@ const Statistics = () => {
 
   return (
     <div>
-      <h1>통계 페이지</h1>
-      성별
-      <Pie data={genderRatio} />
-      티어별 신고 횟수
-      <Bar data={reportTierRatio} />
-      카테고리별 신고 횟수
-      <Bar data={abuseCntByCategory} />
-      manner_grade 별 신고 횟수
-      <Bar data={loluserCntByMannerGrade} />
-      월별 신고 횟수
-      <Pie data={reportCntByMonth} />
+      <div>
+        <Header />
+      </div>
+      <div>
+        <h1>통계 페이지</h1>
+        성별
+        <Pie data={genderRatio} />
+        티어별 신고 횟수
+        <Bar data={reportTierRatio} />
+        카테고리별 신고 횟수
+        <Bar data={abuseCntByCategory} />
+        manner_grade 별 신고 횟수
+        <Bar data={loluserCntByMannerGrade} />
+        월별 신고 횟수
+        <Pie data={reportCntByMonth} />
+      </div>
     </div>
   );
 };

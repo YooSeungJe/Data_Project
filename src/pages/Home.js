@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import axios from 'axios';
 
-
 function Home() {
   const [showOptions, setShowOptions] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -15,7 +14,7 @@ function Home() {
   const [nickname, setNickname] = useState('');
   const [lolUser, setLolUser] = useState(null);
   const [statsMain, setStatsMain] = useState(null);
-  
+
   const handleClick = () => {
     setShowOptions(!showOptions);
   };
@@ -31,11 +30,9 @@ function Home() {
       localStorage.removeItem('token');
       localStorage.removeItem('emailId');
       setIsLoggedIn(false);
-      alert('로그아웃 되었습니다')
+      alert('로그아웃 되었습니다');
     }
-  }
-
-
+  };
 
   const handleButtonClick = async () => {
     if (nickname.trim() !== '') {
@@ -52,14 +49,11 @@ function Home() {
     }
   };
 
-const handleDetailView = () => {
-  if (lolUser) {
-    navigate(`/detail/${encodeURIComponent(lolUser.lol_id)}`);
-  }
-};
-
-  
-  
+  const handleDetailView = () => {
+    if (lolUser) {
+      navigate(`/detail/${encodeURIComponent(lolUser.lol_id)}`);
+    }
+  };
 
   const navigate = useNavigate();
 
@@ -75,7 +69,9 @@ const handleDetailView = () => {
     if (isLoggedIn) {
       return (
         <div style={{ display: 'flex' }}>
-          <p className='login-button' onClick={()=>navigate('/my')}>마이페이지</p>
+          <p className='login-button' onClick={() => navigate('/my')}>
+            마이페이지
+          </p>
           <p className='register-button' onClick={handleLogoutClick}>
             로그아웃
           </p>
@@ -130,7 +126,6 @@ const handleDetailView = () => {
         ? `url(${gentle_tier})`
         : '',
   };
-
 
   return (
     <div style={jinxImage}>
@@ -200,28 +195,45 @@ const handleDetailView = () => {
               <div className='row'>
                 <div className='col-6' style={tierImage}></div>
                 <div className='col-6 user-nickname'>
-                  <div>
-                    {lolUser.lol_id}
-                  </div> 
+                  <div>{lolUser.lol_id}</div>
                   <div className='row user-info'>
                     <div className='col-4'>
                       <h4>Total</h4>
-                      <p style={{marginLeft:'9px', color:'red', fontSize:'25px'}}>{lolUser.report_count}</p>  
-                    </div>  
+                      <p
+                        style={{
+                          marginLeft: '9px',
+                          color: 'red',
+                          fontSize: '25px',
+                        }}
+                      >
+                        {lolUser.report_count}
+                      </p>
+                    </div>
                     <div className='col-4'>
                       <h4>Month</h4>
-                      <p style={{marginLeft:'14px', color:'blue', fontSize:'25px'}}>{statsMain.score_count}</p>
-                    </div>  
+                      <p
+                        style={{
+                          marginLeft: '14px',
+                          color: 'blue',
+                          fontSize: '25px',
+                        }}
+                      >
+                        {statsMain.score_count}
+                      </p>
+                    </div>
                     <div className='col-4'>
-                      <h4 style={{fontSize:'13px', marginBottom:'16px'}}>Most used</h4> 
-                      <p>{statsMain.category_name}</p> 
-                    </div>  
-                  </div> 
+                      <h4 style={{ fontSize: '13px', marginBottom: '16px' }}>
+                        Most used
+                      </h4>
+                      <p>{statsMain.category_name}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-              <button className='request' onClick={handleDetailView}>상세보기</button>
-            </div>  
-
+              <button className='request' onClick={handleDetailView}>
+                상세보기
+              </button>
+            </div>
           )}
         </div>
       )}
@@ -230,4 +242,3 @@ const handleDetailView = () => {
 }
 
 export default Home;
-
