@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import * as Api from '../api.js';
-import Header from './Header';
+import axios from 'axios';
 import { Bar, Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
-
+import Header from './Header';
 const Statistics = () => {
   const [genderData, setGenderData] = useState([]); // 성별
   const [reportTierRatioData, setReportTierRatioData] = useState([]); // 티어별 신고 횟수
   const [abuseCntByCategoryData, setAbuseCntByCategoryData] = useState([]); // 신고된 카테고리 누적횟수
   const [userCntByMannerGradeData, setUserCntByMannerGradeData] = useState([]); // manner_grade 별 누적
   const [reportCntByMonthData, setReportCntByMonthData] = useState([]); // 월별 신고 누적 횟수
+  const [reportCntByTimeData, setReportCntByTimeData] = useState([]); // 시간대 별 욕설 당한 횟수
 
   useEffect(() => {
     fetchReportTierRatioData();
@@ -17,13 +17,16 @@ const Statistics = () => {
     fetchAbuseCntByCategory();
     fetchUserCntByMannerGrade();
     fetchGenderData();
+    fetchreportCntByTimeData();
   }, []);
 
   // 성별
   const fetchGenderData = async () => {
     try {
-      const response = await Api.get('/stats/genderRatio');
-      const genderRatioData = response;
+      const response = await axios.get(
+        'http://localhost:3001/stats/genderRatio'
+      );
+      const genderRatioData = response.data;
       setGenderData(genderRatioData);
     } catch (error) {
       console.error(error);
@@ -44,8 +47,10 @@ const Statistics = () => {
   // 티어별 신고 횟수
   const fetchReportTierRatioData = async () => {
     try {
-      const response = await Api.get('/stats/reportTierRatio');
-      const reportTierRatio = response;
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportTierRatio'
+      );
+      const reportTierRatio = response.data;
       setReportTierRatioData(reportTierRatio);
     } catch (error) {
       console.error(error);
@@ -66,8 +71,10 @@ const Statistics = () => {
   // 카테고리별 누적 횟수
   const fetchAbuseCntByCategory = async () => {
     try {
-      const response = await Api.get('/stats/abuseCntByCategory');
-      const abuseCntByCategory = response;
+      const response = await axios.get(
+        'http://localhost:3001/stats/abuseCntByCategory'
+      );
+      const abuseCntByCategory = response.data;
       setAbuseCntByCategoryData(abuseCntByCategory);
     } catch (error) {
       console.error(error);
@@ -75,7 +82,7 @@ const Statistics = () => {
   };
 
   const abuseCntByCategory = {
-    labels: abuseCntByCategoryData.map(item => item.category_name),
+    labels: abuseCntByCategoryData.map(item => item.categoryName),
     datasets: [
       {
         label: '신고 횟수',
@@ -88,8 +95,10 @@ const Statistics = () => {
   // manner_grade별 누적 횟수
   const fetchUserCntByMannerGrade = async () => {
     try {
-      const response = await Api.get('/stats/loluserCntByMannerGrade');
-      const loluserCntByMannerGrade = response;
+      const response = await axios.get(
+        'http://localhost:3001/stats/loluserCntByMannerGrade'
+      );
+      const loluserCntByMannerGrade = response.data;
       setUserCntByMannerGradeData(loluserCntByMannerGrade);
     } catch (error) {
       console.error(error);
@@ -101,7 +110,7 @@ const Statistics = () => {
     datasets: [
       {
         label: '유저 수',
-        data: userCntByMannerGradeData.map(item => item.grade_count),
+        data: userCntByMannerGradeData.map(item => item.count),
         backgroundColor: 'rgba(75,192,192,1)',
       },
     ],
@@ -110,8 +119,10 @@ const Statistics = () => {
   // 월별 신고 누적 횟수
   const fetchReportCntByMonth = async () => {
     try {
-      const response = await Api.get('/stats/reportCntByMonth');
-      const reportCntByMonth = response;
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportCntByMonth'
+      );
+      const reportCntByMonth = response.data;
       setReportCntByMonthData(reportCntByMonth);
     } catch (error) {
       console.error(error);
@@ -123,7 +134,7 @@ const Statistics = () => {
     labels: reportCntByMonthData.map(item => item.month),
     datasets: [
       {
-        data: reportCntByMonthData.map(item => item.report_count),
+        data: reportCntByMonthData.map(item => item.count),
         backgroundColor: [
           '#FF6384',
           '#36A2EB',
@@ -154,26 +165,62 @@ const Statistics = () => {
     ],
   };
 
+  // 시간대 별 욕설 당한 횟수
+  // 티어별 신고 횟수
+  const fetchreportCntByTimeData = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportCntByTime'
+      );
+      const reportCntByTime = response.data;
+      setReportCntByTimeData(reportCntByTime);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const reportCntByTime = {
+    labels: reportCntByTimeData.map(item => item.hourRange),
+    datasets: [
+      {
+        label: '신고 횟수',
+        data: reportCntByTimeData.map(item => item.count),
+        backgroundColor: 'rgba(75,192,192,1)',
+      },
+    ],
+  };
+
   return (
-    <div>
+    <div className="my-back">
       <div>
-        <Header />
+        <Header/>
       </div>
-      <div>
-        <h1>통계 페이지</h1>
-        성별
-        <Pie data={genderRatio} />
-        티어별 신고 횟수
-        <Bar data={reportTierRatio} />
-        카테고리별 신고 횟수
-        <Bar data={abuseCntByCategory} />
-        manner_grade 별 신고 횟수
-        <Bar data={loluserCntByMannerGrade} />
-        월별 신고 횟수
-        <Pie data={reportCntByMonth} />
+      <div style={{display:'flex'}}>
+        <div style={{width:'25%'}}>
+          <Bar data={reportTierRatio} />
+        </div>
+        <div style={{width:'25%'}}>
+          <Bar data={abuseCntByCategory} />
+        </div>
+        <div style={{width:'25%'}}>
+          <Bar data={loluserCntByMannerGrade} />
+        </div>
+        <div style={{width:'25%'}}>
+          <Bar data={reportCntByTime} />
+        </div>
+      </div>
+      <div style={{display:'flex'}}>
+        <div style={{width:'50%'}}>
+          <Pie data={reportCntByMonth} />
+        </div>
+        <div style={{width:'50%'}}>
+          <Pie data={genderRatio} />
+        </div>
       </div>
     </div>
   );
 };
 
 export default Statistics;
+
+
