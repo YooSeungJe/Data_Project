@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import * as Api from '../api.js';
+import Header from './Header';
 import { Bar, Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
@@ -21,10 +22,8 @@ const Statistics = () => {
   // 성별
   const fetchGenderData = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3001/stats/genderRatio'
-      );
-      const genderRatioData = response.data;
+      const response = await Api.get('/stats/genderRatio');
+      const genderRatioData = response;
       setGenderData(genderRatioData);
     } catch (error) {
       console.error(error);
@@ -45,10 +44,8 @@ const Statistics = () => {
   // 티어별 신고 횟수
   const fetchReportTierRatioData = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3001/stats/reportTierRatio'
-      );
-      const reportTierRatio = response.data;
+      const response = await Api.get('/stats/reportTierRatio');
+      const reportTierRatio = response;
       setReportTierRatioData(reportTierRatio);
     } catch (error) {
       console.error(error);
@@ -69,10 +66,8 @@ const Statistics = () => {
   // 카테고리별 누적 횟수
   const fetchAbuseCntByCategory = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3001/stats/abuseCntByCategory'
-      );
-      const abuseCntByCategory = response.data;
+      const response = await Api.get('/stats/abuseCntByCategory');
+      const abuseCntByCategory = response;
       setAbuseCntByCategoryData(abuseCntByCategory);
     } catch (error) {
       console.error(error);
@@ -93,10 +88,8 @@ const Statistics = () => {
   // manner_grade별 누적 횟수
   const fetchUserCntByMannerGrade = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3001/stats/loluserCntByMannerGrade'
-      );
-      const loluserCntByMannerGrade = response.data;
+      const response = await Api.get('/stats/loluserCntByMannerGrade');
+      const loluserCntByMannerGrade = response;
       setUserCntByMannerGradeData(loluserCntByMannerGrade);
     } catch (error) {
       console.error(error);
@@ -117,10 +110,8 @@ const Statistics = () => {
   // 월별 신고 누적 횟수
   const fetchReportCntByMonth = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:3001/stats/reportCntByMonth'
-      );
-      const reportCntByMonth = response.data;
+      const response = await Api.get('/stats/reportCntByMonth');
+      const reportCntByMonth = response;
       setReportCntByMonthData(reportCntByMonth);
     } catch (error) {
       console.error(error);
@@ -165,17 +156,22 @@ const Statistics = () => {
 
   return (
     <div>
-      <h1>통계 페이지</h1>
-      성별
-      <Pie data={genderRatio} />
-      티어별 신고 횟수
-      <Bar data={reportTierRatio} />
-      카테고리별 신고 횟수
-      <Bar data={abuseCntByCategory} />
-      manner_grade 별 신고 횟수
-      <Bar data={loluserCntByMannerGrade} />
-      월별 신고 횟수
-      <Pie data={reportCntByMonth} />
+      <div>
+        <Header />
+      </div>
+      <div>
+        <h1>통계 페이지</h1>
+        성별
+        <Pie data={genderRatio} />
+        티어별 신고 횟수
+        <Bar data={reportTierRatio} />
+        카테고리별 신고 횟수
+        <Bar data={abuseCntByCategory} />
+        manner_grade 별 신고 횟수
+        <Bar data={loluserCntByMannerGrade} />
+        월별 신고 횟수
+        <Pie data={reportCntByMonth} />
+      </div>
     </div>
   );
 };

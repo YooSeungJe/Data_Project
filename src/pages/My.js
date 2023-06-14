@@ -91,13 +91,13 @@ function My() {
   }, []);
 
   const userStatus = {
-    labels: ['승인', '미승인'],
+    labels: ['미승인', '승인', '대기중'],
     datasets: [
       {
         label:'건수',
         data: userStatusData.map(item=> item.count),
-        backgroundColor:['#4374D9','#FF5A5A'],
-        borderColor:['#4374D9','#FF5A5A'],
+        backgroundColor:['#FF5A5A','#4374D9','#A6A6A6'],
+        borderColor:['#FF5A5A','#4374D9','#A6A6A6'],
         borderWidth:1,
       },
     ],
@@ -184,10 +184,10 @@ function My() {
           <p>이번달은 총 <span style={{color:'skyblue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
           <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
         </div>
-        <div className="pie-chart">
+        <div className="left-pie-chart">
             <Doughnut data={userStatus} options={{color:'white'}}/>
         </div>
-        <div className="pie-chart">
+        <div className="right-pie-chart">
             <Doughnut data={userReport} options={{color:'white'}}/>
         </div>
       </div>
@@ -204,4 +204,6 @@ function My() {
 }
 
 export default My;
+
+
 
