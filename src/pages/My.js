@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from 'axios';
+import * as Api from '../api.js'
 import Header from './Header';
 import './css/My.css';
-import {Doughnut } from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
@@ -20,14 +20,10 @@ function My() {
         const token = localStorage.getItem('token');
 
         if (token) {
-          const response1 = await axios.get('http://localhost:3001/lolUser/my', {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserInfo(response1.data);
-          const response2 = await axios.get(`http://localhost:3001/stats/basic/${response1.data.lol_id}`);
-          setStats(response2.data);
+          const response1 = await Api.get('http://localhost:3001/lolUser/my');
+          setUserInfo(response1);
+          const response2 = await Api.get(`http://localhost:3001/stats/basic/${response1.lol_id}`);
+          setStats(response2);
         }
       } catch (error) {
         console.error(error);
@@ -45,12 +41,8 @@ function My() {
 
 
       if (token && emailId) {
-        const response3 = await axios.get(`http://localhost:3001/stats/userReportedByCategory/${emailId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setAbuseCntByCategoryData(response3.data);
+        const response3 = await Api.get(`http://localhost:3001/stats/userReportedByCategory/${emailId}`);
+        setAbuseCntByCategoryData(response3);
       }
     } catch (error) {
       console.error(error);
@@ -79,12 +71,8 @@ function My() {
         const emailId = localStorage.getItem('emailId');
 
         if(token && emailId) {
-          const response4 = await axios.get(`http://localhost:3001/stats/userReportCntByStatus/${emailId}`,{
-            headers : {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserStatusData(response4.data);
+          const response4 = await Api.get(`http://localhost:3001/stats/userReportCntByStatus/${emailId}`);
+          setUserStatusData(response4);
         }
       } catch (error) {
         console.error(error);
@@ -93,8 +81,21 @@ function My() {
       fetchUserReportedByStatus();
   }, []);
 
+  const statusLabels = userStatusData.map(item => {
+    switch (item.status) {
+      case 'rejected':
+        return '반려';
+      case 'completed':
+        return '승인';
+      case 'pending':
+        return '대기중';
+      default:
+        return '';
+    }
+  });
+
   const userStatus = {
-    labels: userStatusData.map(item=> item.status),
+    labels: statusLabels,
     datasets: [
       {
         label:'건수',
@@ -116,13 +117,9 @@ function My() {
         const emailId = localStorage.getItem('emailId');
 
         if(token && emailId) {
-          const response5 = await axios.get(`http://localhost:3001/stats/userReportCnt/${emailId}`,{
-            headers : {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          setUserReportedData(response5.data.userReportedCnt);
-          setUserReportingData(response5.data.userReportingCnt);
+          const response5 = await Api.get(`http://localhost:3001/stats/userReportCnt/${emailId}`);
+          setUserReportedData(response5.userReportedCnt);
+          setUserReportingData(response5.userReportingCnt);
         }
       } catch (error) {
         console.error(error);
@@ -146,6 +143,8 @@ function My() {
       },
     ],
   };
+
+  
 
 
 

@@ -43,11 +43,18 @@ function Home() {
         setLolUser(response1);
         setStatsMain(response2);
         setShowUserCard(!showUserCard);
+        if(response1 == null) {
+          alert('존재하지 않는 유저입니다.');
+          setShowUserCard(false);
+        }
       } catch (error) {
         console.log('error', error);
-      }
+      } 
     }
   };
+
+
+
 
   const handleDetailView = () => {
     if (lolUser) {
