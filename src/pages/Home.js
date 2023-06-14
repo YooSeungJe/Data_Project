@@ -147,6 +147,7 @@ const handleDetailView = () => {
               소개
             </p>
             <p
+              style={{marginLeft:'7px'}}
               onClick={() => {
                 navigate('/report');
               }}
@@ -154,6 +155,7 @@ const handleDetailView = () => {
               신고
             </p>
             <p
+              style={{marginLeft:'7px'}}
               onClick={() => {
                 navigate('/stats');
               }}

@@ -2,16 +2,15 @@ import React, { useState, useEffect } from "react";
 import axios from 'axios';
 import Header from './Header';
 import './css/My.css';
-import { Bar, Pie, Doughnut } from 'react-chartjs-2';
+import {Doughnut } from 'react-chartjs-2';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
   const [stats, setStats] = useState('');
   const [abuseCntByCategoryData, setAbuseCntByCategoryData] = useState([]); // 신고된 카테고리 누적횟수
   const [userStatusData, setUserStatusData] = useState([]);
-  const [userReportData, setUserReportData] = useState([]);
-
-
+  const [userReportedData, setUserReportedData] = useState([]);
+  const [userReportingData, setUserReportingData] = useState([]);
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
@@ -119,24 +118,27 @@ function My() {
               Authorization: `Bearer ${token}`,
             },
           });
-          setUserReportData(response5.data);
+          setUserReportedData(response5.data.userReportedCnt);
+          setUserReportingData(response5.data.userReportingCnt);
         }
       } catch (error) {
         console.error(error);
       }
     };
+
       fetchUserReport();
+
   }, []);
 
 
   const userReport = {
-    labels:['피신고', '신고'],
+    labels:['신고', '피신고'],
     datasets: [
       {
         label:'건수',
-        data: userStatusData.map(item=> item.count),
-        backgroundColor:['#FF5A5A','#4374D9'],
-        borderColor:['#FF5A5A','#4374D9'],
+        data: [userReportingData.map(item=> item.count), userReportedData.map(item=> item.count)],
+        backgroundColor:['#4374D9','#FF5A5A'],
+        borderColor:['#4374D9','#FF5A5A'],
         borderWidth:1,
       },
     ],

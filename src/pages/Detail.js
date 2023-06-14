@@ -3,13 +3,14 @@ import Header from "./Header";
 import { useParams } from "react-router-dom";
 import './css/Detail.css';
 import axios from "axios";
+import { Doughnut } from 'react-chartjs-2';
 
 function Detail() {
 
     const { id } = useParams();
     const [lolUser, setLolUser] = useState('');
     const [statsMain, setStatsMain] = useState('');
-
+    const [categoryData, setCategoryData] = useState([]);
     
     useEffect(() => {
         const fetchLolUser = async () => {
@@ -27,6 +28,32 @@ function Detail() {
         };
         fetchLolUser();
     }, []);
+
+    
+    useEffect(() => {
+        const fetchReportedByCategory = async () => {
+
+        if (id.trim() !== '') {
+            const response3 = await axios.get(`http://localhost:3001/stats/searchLolUserReportCntByCategory/${id}`);
+            setCategoryData(response3.data.searchLolUserReportCntByCategory);
+        }
+        } 
+        fetchReportedByCategory();
+    }, []);
+    
+    const abuseCntByCategory = {
+        labels: ['clean', '악플/욕설', '여성/가족', '연령', '남성', '지역', '종교'],
+        datasets: [
+          {
+            label: '신고 횟수',
+            data: categoryData.map(item => item.count),
+            backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+            borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+            borderDash:[0],
+          },
+        ],
+      };
+      
 
     const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
     const silver_tier = process.env.PUBLIC_URL + '/실버.png';
@@ -60,6 +87,11 @@ function Detail() {
                     <p><span style={{fontSize:'25px'}}>{id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{lolUser.report_count}</span>회 입니다.</p>
                     <p>이번달은 총 <span style={{color:'skyblue'}}>{statsMain.score_count}</span>회의 신고를 당하셨습니다.</p>
                     <p>욕설 중 `{statsMain.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
+                </div>
+            </div>
+            <div>
+                <div className="category-chart">
+                    <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
                 </div>
             </div>
         </div>
