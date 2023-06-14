@@ -1,13 +1,107 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../pages/css/About.css';
+import axios from 'axios';
+import { Bar, Pie } from 'react-chartjs-2';
 
-export default function About() {
+// export default function About() {
+const About = () => {
   const logo = process.env.PUBLIC_URL + '/PECO.png';
-  const chart1 = process.env.PUBLIC_URL + '/chart1.png';
-  const chart2 = process.env.PUBLIC_URL + '/chart2.png';
-  const chart3 = process.env.PUBLIC_URL + '/chart3.png';
-  const chart4 = process.env.PUBLIC_URL + '/chart4.png';
+
+  const [genderRatioData, setGenderRatioData] = useState([]);
+  const [reportTierRatioData, setReportTierRatioData] = useState([]);
+  const [reportCntByMonthData, setReportCntByMonthData] = useState([]);
+  const [reportLoluserTopTenData, setReportLoluserTopTenData] = useState([]);
+
+  useEffect(() => {
+    fetchGenderRatio();
+    fetchReportTierRatio();
+    fetchReportCntByMonth();
+    fetchReportLoluserTopTen();
+  }, []);
+
+  const fetchGenderRatio = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/stats/genderRatio'
+      );
+      const genderRatioData = response.data;
+      setGenderRatioData(genderRatioData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchReportTierRatio = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportTierRatio'
+      );
+      const ReportTierRatio = response.data;
+      setReportTierRatioData(ReportTierRatio);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchReportCntByMonth = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportCntByMonth'
+      );
+      const ReportCntByMonth = response.data;
+      setReportCntByMonthData(ReportCntByMonth);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const fetchReportLoluserTopTen = async () => {
+    try {
+      const response = await axios.get(
+        'http://localhost:3001/stats/reportLoluserTopTen'
+      );
+      const ReportLoluserTopTen = response.data;
+      setReportLoluserTopTenData(ReportLoluserTopTen);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const reportCntByMonth = {
+    labels: genderRatioData.map(item => item.month),
+    datasets: [
+      {
+        data: genderRatioData.map(item => item.report_count),
+        backgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#8C65D3',
+          '#FF9F40',
+          '#4BC0C0',
+          '#E7E9ED',
+          '#A9DFBF',
+          '#F5A9BC',
+          '#D7DF01',
+          '#298A08',
+        ],
+        hoverBackgroundColor: [
+          '#FF6384',
+          '#36A2EB',
+          '#FFCE56',
+          '#8C65D3',
+          '#FF9F40',
+          '#4BC0C0',
+          '#E7E9ED',
+          '#A9DFBF',
+          '#F5A9BC',
+          '#D7DF01',
+          '#298A08',
+        ],
+      },
+    ],
+  };
 
   return (
     <>
@@ -26,17 +120,8 @@ export default function About() {
             특히, 사이버 언어폭력은 가장 높은 비율로 발생하며, 사이버 폭력
             가해의 경로 중에서도 온라인 게임이 가장 높은 비율을 차지합니다.
             PECO는 이러한 문제에 대응하기 위해 다음과 같은 기능을 제공합니다:
-            <img
-              className='chart-image'
-              src={chart4}
-              alt='사이버 폭력 가해 동기'
-            />
+            <Bar data={reportCntByMonth} />
           </p>
-          <img
-            className='chart-image'
-            src={chart1}
-            alt='사이버 폭력 가해 경로1'
-          />
 
           <h3>PECO의 기능</h3>
           <div className='about-list'>
@@ -49,11 +134,9 @@ export default function About() {
             <li>안전한 온라인 환경 조성</li>
             <li>사이버 언어폭력 통계 제공</li>
           </div>
-          <img
-            className='chart-image'
-            src={chart2}
-            alt='사이버 폭력 가해 경로2'
-          />
+
+          <Pie data={reportTierRatioData} />
+
           <h3>PECO의 목표</h3>
           <p className='about-text'>
             PECO는 피해자들에게 적극적인 대응 방식을 제공하여 기존의 소극적인
@@ -66,14 +149,15 @@ export default function About() {
             이 프로젝트를 통해 사회적인 변화를 이끌어내고 사이버 환경에서 상호
             존중과 책임을 바탕으로 한 건전한 온라인 문화를 조성하기 위한 노력을
             기울이고자 합니다.
-            <img
-              className='chart-image chart3'
-              src={chart3}
-              alt='사이버 언어폭력 용인 태도'
-            />
           </p>
+
+          <Pie data={reportCntByMonthData} />
+
+          <Pie data={reportLoluserTopTenData} />
         </div>
       </div>
     </>
   );
-}
+};
+
+export default About;
