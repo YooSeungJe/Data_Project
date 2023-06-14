@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import * as Api from '../api.js'
-import * as Api from '../api.js'
 import Header from './Header';
 import './css/My.css';
 import { Doughnut } from 'react-chartjs-2';
