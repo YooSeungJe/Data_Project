@@ -85,3 +85,8 @@
         height: 300vh;
     }
 }
+
+.reports-container {
+    width: 100%;
+    background-color: grey;
+}
