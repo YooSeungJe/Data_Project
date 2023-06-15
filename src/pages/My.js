@@ -3,7 +3,6 @@ import * as Api from '../api.js'
 import Header from './Header';
 import './css/My.css';
 import { Doughnut } from 'react-chartjs-2';
-import buttonStyles from './css/Button.module.css';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
@@ -17,8 +16,10 @@ function My() {
   //페이지네이션
   const [currentPage, setCurrentPage] = useState(0);
   const [totalPage, setTotalPage] = useState(1);
-  const [sort, SetSort] = useState('new');
-  const [statusPage, SetStatusPage] = useState('all');
+  const [sort, setSort] = useState('new');
+  const [statusPage, setStatusPage] = useState('all');
+  const [selectedUserReport, setSelectedUserReport] = useState(null);
+  const [reportDetail, setReportDetail] = useState([]);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -153,6 +154,7 @@ function My() {
   const fetchMyReportList = useCallback(async ()=>{
      const response = await Api.get(`/report/my?sort=${sort}&status=${statusPage}&currentPage=${currentPage}`)
      setUserReportList(response.data);
+     console.log(response.data);
      setTotalPage(response.totalPages);
    }, [sort, statusPage, currentPage])
 
@@ -170,7 +172,12 @@ function My() {
   const handleClickDetail = async (report) => {
     const reportId = report.id;
     const response = await Api.get(`/admin/report/${reportId}`)
-    console.log(response);
+    if (selectedUserReport == null){
+      setSelectedUserReport(report);
+    } else {
+      setSelectedUserReport(null);
+    }
+    setReportDetail(response);
   }
 // 사진 파일
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
@@ -215,42 +222,80 @@ function My() {
         </div>
       </div>
       <div className="chart-container">
-        <div className="category-chart">
+        <div className="inchart category-chart">
           <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
         </div>
-        <div className="reports-container">
+        <div className="inchart reports-container">
         <div className='radio-container'>
           <div className="status-container">
-            {statusList.map((stat, index) => (
-            <div key={index}>
-              <input type="radio" id={`radio${index}`} name="radioGroup1" value={stat} onClick={()=>{SetStatusPage(stat)}}/>
-              <label for={`radio${index}`}>{stat}</label>
-            </div>
-            ))}
+            {statusList.map((stat, index) => {
+              let labelValue;
+              switch (stat) {
+                case 'pending':
+                  labelValue = '대기중';
+                  break;
+                case 'completed':
+                  labelValue = '승인';
+                  break;
+                case 'rejected':
+                  labelValue = '반려';
+                  break;
+                default:
+                  labelValue = stat;
+              }
+              return (
+                <div key={index}>
+                  <input type="radio" id={`radio${index}`} name="radioGroup1" value={stat} onClick={()=>{setStatusPage(stat)}}/>
+                  <label for={`radio${index}`} className={`label-${stat}`}>{labelValue}</label>
+                </div>
+            )})}
           </div>
           <div className="sort-container">
-            {sortList.map((sort, index) => (
-            <div key={index}>
-              <input type="radio" id={`radio${index}`} name="radioGroup2" value={sort} onClick={()=>{SetSort(sort)}}/>
-              <label for={`radio${index}`}>{sort}</label>
-            </div>
-            ))}
+            {sortList.map((sort, index) => {
+              let labelValue;
+              switch (sort) {
+                case 'old':
+                  labelValue = '오래된순';
+                  break;
+                case 'new':
+                  labelValue = '최신순';
+                  break;
+                default:
+                  labelValue = sort;
+              }
+              return (
+                <div key={index}>
+                  <input type="radio" id={`radio${index}`} name="radioGroup2" value={sort} onClick={()=>{setSort(sort)}}/>
+                  <label for={`radio${index}`}>{labelValue}</label>
+                </div>
+            )})}
           </div>
         </div>
+        <div className="report-card-container">
           {userReportList.map((userReport)=>{
             return (
-              <div key={userReport.id} className='report-card'>
+              <div key={userReport.id} className={`report-card-${userReport.status}`}>
               <div key={userReport.id*100} className='report-card-content'>
                 <h2>욕한 놈: {userReport.attacker_id}</h2>
                 <h3>등록일: {userReport.created_at}</h3>
+                <div>
+                  {selectedUserReport && selectedUserReport.id === userReport.id && (
+                    reportDetail.map((detail, index)=>{return(
+                      <div key={index} className='in-detail-card'>
+                        <h2>{detail.content}</h2>
+                        <h2>{detail.category_name}</h2>
+                      </div>
+                    )})
+                  )}
+                </div>
               </div>
-                <button className='status-button'>{userReport.status.charAt()}</button>
-                <button className={buttonStyles.button} onClick={()=>(handleClickDetail(userReport))}>
-                  <span className={buttonStyles.button_top}>상세 보기</span>
-                </button>
+              <div>
+                <button className='detail-button' onClick={()=>(handleClickDetail(userReport))}>상세 보기</button>
+              </div>
               </div>
             )
           })}
+          </div>
           <div className='page-number'>
               <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>이전</button>
                 {pageNumbers.map(number =>(<button key={number} onClick={() => setCurrentPage(number)} style={{ backgroundColor: number === currentPage ? 'blue' : 'white' }}>{number+1}</button>))}
