@@ -1,0 +1,125 @@
+.About-page {
+  background-color: black;
+  color: white;
+  text-align: center;
+}
+.function-benefit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.function-benefit > div {
+  flex-basis: 45%;
+}
+
+.about-text {
+  margin-bottom: 50px;
+  padding: 20px;
+}
+
+/* .chart-container {
+  width: 400px;
+  height: 300px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  color: red;
+} */
+
+/* .function-benefit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.function-benefit > div {
+  flex-basis: 45%;
+} */
+
+.About-container {
+  /* padding-top: 5%; */
+  font-size: 15px;
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 5px;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-bottom: 50px;
+  background-color: rgb(4, 3, 8);
+  color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-direction: column;
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  text-shadow: 2px 2px 4px #6fe7fc;
+}
+
+.About-content {
+  margin-bottom: 20px;
+}
+
+.About-description {
+  font-size: 16px;
+  color: black;
+}
+
+.About-footer {
+  text-align: center;
+}
+
+.component {
+  color: var(--bs-gray-800);
+  background-color: var(--bs-gray-100);
+  border: 1px solid var(--bs-gray-100);
+  border-radius: 0.25rem;
+  padding: 5px;
+}
+
+.component-header {
+  color: var(--bs-purple);
+  padding: 5px;
+}
+
+.custom-tabs {
+  background-color: black;
+}
+
+.logo {
+  padding-top: 5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.logo-image {
+  width: 500px; /* 원하는 크기로 설정 */
+  height: auto; /* 가로 크기에 따라 자동으로 조절되도록 설정 */
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.chart-image {
+  max-width: 800px; /* Set the maximum width for chart3 image */
+  height: auto; /* Automatically adjust the height while maintaining aspect ratio */
+  display: block;
+  margin: 20px auto;
+  margin-bottom: 50px;
+}
+
+.chart-image.chart3 {
+  max-width: 400px; /* Set the maximum width for chart3 image */
+  height: auto; /* Automatically adjust the height while maintaining aspect ratio */
+  display: block;
+  margin: 20px auto; /* Center-align the image horizontally with top and bottom margin */
+}
