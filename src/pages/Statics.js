@@ -13,6 +13,7 @@ const Statistics = () => {
   const [reportCntByTimeData, setReportCntByTimeData] = useState([]); // 시간대 별 욕설 당한 횟수
   const [userTotalCnt, setUserTotalCnt] = useState([]);
   const [reportTotal, setReportTotal] = useState([]);
+  const [top10, setTop10] = useState([]);
   useEffect(() => {
     fetchReportTierRatioData();
     fetchReportCntByMonth();
@@ -22,6 +23,7 @@ const Statistics = () => {
     fetchreportCntByTimeData();
     fetchUserTotalCnt();
     fetchReportTotalCnt();
+    fetchTop10();
   }, []);
 
   // 성별
@@ -227,6 +229,18 @@ const Statistics = () => {
     }
   };
 
+  //top10 욕쟁이
+  const fetchTop10 = async () => {
+    try {
+      const response = await Api.get(
+        '/stats/reportLoluserTopTen'
+      );
+      setTop10(response);
+    } catch (error){
+      console.log(error);
+    }
+  }
+
 
 
   return (
@@ -269,6 +283,16 @@ const Statistics = () => {
             <Bar data={loluserCntByMannerGrade} />
           </div>
         </div>
+      </div>
+      <div className='top10-abuser' style={{display:'flex', height:'100px', color:'white',backgroundColor:'#353535'}}>
+        {top10.map((user, index)=>{
+          return (
+            <div key={index} style={{margin:'auto', fontSize:'5px',fontWeight:'bold'}}>
+              <p>{user.attackerId}</p>
+              <p>{user.count}</p>
+            </div>
+          )
+        })}
       </div>
     </div>
   );
