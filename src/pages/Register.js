@@ -20,7 +20,7 @@ function Register() {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      const response = await Api.post('http://localhost:3001/user/register', {
+      const response = await Api.post('/user/register', {
         emailId,
         password,
         nickname,
@@ -52,7 +52,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      const response = await Api.post('http://localhost:3001/lolUser/check', {
+      const response = await Api.post('/lolUser/check', {
         lolId,
       });
 
