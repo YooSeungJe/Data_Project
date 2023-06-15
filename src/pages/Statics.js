@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { Bar, Pie } from 'react-chartjs-2';
+import * as Api from '../api.js'
+import { Bar, Pie, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
+import './css/Statics.css';
 import Header from './Header';
 const Statistics = () => {
   const [genderData, setGenderData] = useState([]); // 성별
@@ -10,7 +11,8 @@ const Statistics = () => {
   const [userCntByMannerGradeData, setUserCntByMannerGradeData] = useState([]); // manner_grade 별 누적
   const [reportCntByMonthData, setReportCntByMonthData] = useState([]); // 월별 신고 누적 횟수
   const [reportCntByTimeData, setReportCntByTimeData] = useState([]); // 시간대 별 욕설 당한 횟수
-
+  const [userTotalCnt, setUserTotalCnt] = useState([]);
+  const [reportTotal, setReportTotal] = useState([]);
   useEffect(() => {
     fetchReportTierRatioData();
     fetchReportCntByMonth();
@@ -18,15 +20,17 @@ const Statistics = () => {
     fetchUserCntByMannerGrade();
     fetchGenderData();
     fetchreportCntByTimeData();
+    fetchUserTotalCnt();
+    fetchReportTotalCnt();
   }, []);
 
   // 성별
   const fetchGenderData = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/genderRatio'
       );
-      const genderRatioData = response.data;
+      const genderRatioData = response;
       setGenderData(genderRatioData);
     } catch (error) {
       console.error(error);
@@ -47,10 +51,10 @@ const Statistics = () => {
   // 티어별 신고 횟수
   const fetchReportTierRatioData = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/reportTierRatio'
       );
-      const reportTierRatio = response.data;
+      const reportTierRatio = response;
       setReportTierRatioData(reportTierRatio);
     } catch (error) {
       console.error(error);
@@ -71,10 +75,10 @@ const Statistics = () => {
   // 카테고리별 누적 횟수
   const fetchAbuseCntByCategory = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/abuseCntByCategory'
       );
-      const abuseCntByCategory = response.data;
+      const abuseCntByCategory = response;
       setAbuseCntByCategoryData(abuseCntByCategory);
     } catch (error) {
       console.error(error);
@@ -87,7 +91,9 @@ const Statistics = () => {
       {
         label: '신고 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
-        backgroundColor: 'rgba(75,192,192,1)',
+        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderDash:[0],
       },
     ],
   };
@@ -95,10 +101,10 @@ const Statistics = () => {
   // manner_grade별 누적 횟수
   const fetchUserCntByMannerGrade = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/loluserCntByMannerGrade'
       );
-      const loluserCntByMannerGrade = response.data;
+      const loluserCntByMannerGrade = response;
       setUserCntByMannerGradeData(loluserCntByMannerGrade);
     } catch (error) {
       console.error(error);
@@ -119,10 +125,10 @@ const Statistics = () => {
   // 월별 신고 누적 횟수
   const fetchReportCntByMonth = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/reportCntByMonth'
       );
-      const reportCntByMonth = response.data;
+      const reportCntByMonth = response;
       setReportCntByMonthData(reportCntByMonth);
     } catch (error) {
       console.error(error);
@@ -134,6 +140,7 @@ const Statistics = () => {
     labels: reportCntByMonthData.map(item => item.month),
     datasets: [
       {
+        label:'신고건수',
         data: reportCntByMonthData.map(item => item.count),
         backgroundColor: [
           '#FF6384',
@@ -165,14 +172,16 @@ const Statistics = () => {
     ],
   };
 
+  
+
   // 시간대 별 욕설 당한 횟수
   // 티어별 신고 횟수
   const fetchreportCntByTimeData = async () => {
     try {
-      const response = await axios.get(
+      const response = await Api.get(
         'http://localhost:3001/stats/reportCntByTime'
       );
-      const reportCntByTime = response.data;
+      const reportCntByTime = response;
       setReportCntByTimeData(reportCntByTime);
     } catch (error) {
       console.error(error);
@@ -185,36 +194,80 @@ const Statistics = () => {
       {
         label: '신고 횟수',
         data: reportCntByTimeData.map(item => item.count),
-        backgroundColor: 'rgba(75,192,192,1)',
+        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+        borderDash:[0],
       },
     ],
   };
 
+
+  //총이용자수
+  const fetchUserTotalCnt = async () => {
+    try {
+      const response = await Api.get(
+        'http://localhost:3001/stats/userTotalCnt'
+      );
+      const userTotal = response;
+      setUserTotalCnt(userTotal);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  //총신고수
+  const fetchReportTotalCnt = async () => {
+    try {
+      const response = await Api.get(
+        'http://localhost:3001/stats/reportTotalCnt'
+      );
+      setReportTotal(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
   return (
-    <div className="my-back">
-      <div>
-        <Header/>
-      </div>
-      <div style={{display:'flex'}}>
-        <div style={{width:'25%'}}>
-          <Bar data={reportTierRatio} />
+    <div className='parent-container'>
+      <div className='chart-back'>
+        <div>
+          <Header/>
         </div>
-        <div style={{width:'25%'}}>
-          <Bar data={abuseCntByCategory} />
+        <div style={{display:'flex', height:'100px', color:'white',backgroundColor:'#353535'}}>
+          <div style={{margin:'auto', fontSize:'30px',fontWeight:'bold'}}>
+            총 가입자수: <span style={{fontWeight:'bolder', fontSize:'32px', color:'#6B66FF'}}>{userTotalCnt}</span>
+            <span style={{marginLeft:'150px'}}>
+              전체 신고건수 : <span style={{fontWeight:'bolder', fontSize:'32px', color:'#F15F5F'}}>{reportTotal}</span>
+            </span>
+          </div>
         </div>
-        <div style={{width:'25%'}}>
-          <Bar data={loluserCntByMannerGrade} />
+        <div style={{display:'flex', height:'600px', paddingBottom:'20px'}} className='chart-back'>
+          <div style={{width:'40%', padding:'20px 0 40px 0', marginLeft:'140px'}}>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'190px'}}>카테고리별</h4>
+            <Pie data={abuseCntByCategory} />
+          </div>
+          <div style={{width:'40%', padding:'20px 0 40px 0',marginLeft:'180px'}}>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>시간대별</h4>
+            <Pie data={reportCntByTime} />
+          </div>
         </div>
-        <div style={{width:'25%'}}>
-          <Bar data={reportCntByTime} />
+        <div>
+          <div style={{width:'65%', marginLeft:'280px',marginTop:'30px'}}>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'450px'}}>날짜별 욕설추이</h4>
+            <Line data={reportCntByMonth} />
+          </div>
         </div>
-      </div>
-      <div style={{display:'flex'}}>
-        <div style={{width:'50%'}}>
-          <Pie data={reportCntByMonth} />
-        </div>
-        <div style={{width:'50%'}}>
-          <Pie data={genderRatio} />
+        <div style={{display:'flex', height:'600px'}}>
+          <div style={{width:'40%', marginLeft:'110px',marginTop:'50px'}}>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>티어별 욕설횟수</h4>
+            <Bar data={reportTierRatio} />
+          </div>
+          <div style={{width:'40%', marginLeft:'100px',marginTop:'50px'}}>
+          <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>Manner-grade별 욕설횟수</h4>
+            <Bar data={loluserCntByMannerGrade} />
+          </div>
         </div>
       </div>
     </div>

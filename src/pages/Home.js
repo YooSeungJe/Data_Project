@@ -232,7 +232,7 @@ function Home() {
                       <h4 style={{ fontSize: '13px', marginBottom: '16px' }}>
                         Most used
                       </h4>
-                      <p>{statsMain.category_name}</p>
+                      <p>{statsMain.category_name || '없음'}</p>
                     </div>
                   </div>
                 </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import { useParams } from "react-router-dom";
 import './css/Detail.css';
-import axios from "axios";
+import * as Api from '../api.js'
 import { Doughnut } from 'react-chartjs-2';
 
 function Detail() {
@@ -16,11 +16,11 @@ function Detail() {
         const fetchLolUser = async () => {
             if (id.trim() !== '') {
                 try {
-                    const response1 = await axios.get(`http://localhost:3001/lolUser/${id}`);
-                    const response2 = await axios.get(`http://localhost:3001/stats/basic/${id}`);
+                    const response1 = await Api.get(`/lolUser/${id}`);
+                    const response2 = await Api.get(`/stats/basic/${id}`);
 
-                    setLolUser(response1.data);
-                    setStatsMain(response2.data);
+                    setLolUser(response1);
+                    setStatsMain(response2);
                 } catch(error) {
                     console.log('error', error);
                 }
@@ -34,8 +34,8 @@ function Detail() {
         const fetchReportedByCategory = async () => {
 
         if (id.trim() !== '') {
-            const response3 = await axios.get(`http://localhost:3001/stats/searchLolUserReportCntByCategory/${id}`);
-            setCategoryData(response3.data.searchLolUserReportCntByCategory);
+            const response3 = await Api.get(`/stats/searchLolUserReportCntByCategory/${id}`);
+            setCategoryData(response3.searchLolUserReportCntByCategory);
         }
         } 
         fetchReportedByCategory();
