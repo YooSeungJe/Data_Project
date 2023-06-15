@@ -62,7 +62,7 @@ function My() {
     labels: abuseCntByCategoryData.map(item => item.category_name),
     datasets: [
       {
-        label: '신고 횟수',
+        label: '욕설 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
         backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
         borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
@@ -190,16 +190,16 @@ function My() {
     width: '190px',
 
     backgroundImage:
-      userInfo && userInfo.manner_grade === 'bronze'
-        ? `url(${bronze_tier})`
-        : userInfo && userInfo.manner_grade === 'silver'
-        ? `url(${silver_tier}})`
-        : userInfo && userInfo.manner_grade === 'gold'
-        ? `url(${gold_tier})`
-        : userInfo && userInfo.manner_grade === 'Gentle'
-        ? `url(${gentle_tier})`
-        : '',
-  };
+    userInfo && userInfo.manner_grade === 'bronze'
+      ? `url(${bronze_tier})`
+      : userInfo && userInfo.manner_grade === 'silver'
+      ? `url(${silver_tier})` // 수정: 중괄호 오류 수정
+      : userInfo && userInfo.manner_grade === 'gold'
+      ? `url(${gold_tier})`
+      : userInfo && userInfo.manner_grade === 'gentle' // 수정: 'Gentle' 대소문자 구분 수정
+      ? `url(${gentle_tier})`
+      : '',
+};
   
 
   return (
@@ -210,8 +210,8 @@ function My() {
       <div className="user-container">
         <div style={divStyle} className="tier-image"></div>
         <div className="middle-text">
-          <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{userInfo.report_count}</span>회 입니다.</p>
-          <p>이번달은 총 <span style={{color:'skyblue'}}>{stats.score_count}</span>회의 신고를 당하셨습니다.</p>
+          <p><span style={{fontSize:'25px'}}>{userInfo.lol_id}</span>님은 총 <span style={{color:'red'}}>{userInfo.report_count}</span>회의 욕설을 하였습니다.</p>
+          <p>이번달은 <span style={{color:'skyblue'}}>{stats.score_count}</span>회의 욕설을 하였습니다.</p>
           <p>욕설 중 `{stats.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
         </div>
         <div className="left-pie-chart">

@@ -11,7 +11,7 @@ function Detail() {
     const [lolUser, setLolUser] = useState('');
     const [statsMain, setStatsMain] = useState('');
     const [categoryData, setCategoryData] = useState([]);
-    
+    const [timeData, setTimeData] = useState([]);
     useEffect(() => {
         const fetchLolUser = async () => {
             if (id.trim() !== '') {
@@ -45,10 +45,34 @@ function Detail() {
         labels: categoryData.map(item => item.categoryName),
         datasets: [
           {
-            label: '신고 횟수',
+            label: '욕설 횟수',
             data: categoryData.map(item => item.count),
             backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
             borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
+            borderDash:[0],
+          },
+        ],
+      };
+
+    useEffect(() => {
+        const fetchUserReportedByTime = async () => {
+
+        if (id.trim() !== '') {
+            const response = await Api.get(`/stats/reportCntByTimeByLolId/${id}`);
+            setTimeData(response);
+        }
+        } 
+        fetchUserReportedByTime();
+    }, []);
+    
+    const abuseUserCntByTime = {
+        labels: timeData.map(item => item.hourRange),
+        datasets: [
+          {
+            label: '욕설 횟수',
+            data: timeData.map(item => item.count),
+            backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF','#FFD9EC','#FAE0D4','#D1B2FF','#CEF279','#FAF4C0'],
+            borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF','#FFD9EC','#FAE0D4','#D1B2FF','#CEF279','#FAF4C0'],
             borderDash:[0],
           },
         ],
@@ -66,14 +90,14 @@ function Detail() {
   
       backgroundImage:
         lolUser && lolUser.manner_grade === 'bronze'
-          ? `url(${bronze_tier})`
-          : lolUser && lolUser.manner_grade === 'silver'
-          ? `url(${silver_tier}})`
-          : lolUser && lolUser.manner_grade === 'gold'
-          ? `url(${gold_tier})`
-          : lolUser && lolUser.manner_grade === 'Gentle'
-          ? `url(${gentle_tier})`
-          : '',
+        ? `url(${bronze_tier})`
+        : lolUser && lolUser.manner_grade === 'silver'
+        ? `url(${silver_tier})` // 수정: 중괄호 오류 수정
+        : lolUser && lolUser.manner_grade === 'gold'
+        ? `url(${gold_tier})`
+        : lolUser && lolUser.manner_grade === 'gentle' // 수정: 'Gentle' 대소문자 구분 수정
+        ? `url(${gentle_tier})`
+        : '',
     };
 
     return(
@@ -84,14 +108,17 @@ function Detail() {
             <div className="user-container">
                 <div style={divStyle} className="tier-image"></div>
                 <div className="middle-text">
-                    <p><span style={{fontSize:'25px'}}>{id}</span>님의 총 피신고 건수는 <span style={{color:'red'}}>{lolUser.report_count}</span>회 입니다.</p>
-                    <p>이번달은 총 <span style={{color:'skyblue'}}>{statsMain.score_count}</span>회의 신고를 당하셨습니다.</p>
+                    <p><span style={{fontSize:'25px'}}>{id}</span>님은 총 <span style={{color:'red'}}>{lolUser.report_count}</span>회의 욕설을 하였습니다.</p>
+                    <p>이번달은 <span style={{color:'skyblue'}}>{statsMain.score_count}</span>회의 욕설을 하였습니다.</p>
                     <p>욕설 중 `{statsMain.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
                 </div>
             </div>
-            <div>
-                <div className="category-chart">
+            <div className='detail-chart-container'>
+                <div className="detail-category-chart">
                     <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
+                </div>
+                <div className="detail-time-chart">
+                    <Doughnut data={abuseUserCntByTime}  options={{color:'white'}}/>
                 </div>
             </div>
         </div>
