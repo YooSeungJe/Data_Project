@@ -202,7 +202,7 @@ function Home() {
               <div className='row'>
                 <div className='col-6' style={tierImage}></div>
                 <div className='col-6 user-nickname'>
-                  <div>{lolUser.lol_id}</div>
+                  <div style={{width:'240px'}}>{lolUser.lol_id}</div>
                   <div className='row user-info'>
                     <div className='col-4'>
                       <h4>Total</h4>

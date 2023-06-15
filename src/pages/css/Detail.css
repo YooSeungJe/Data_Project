@@ -3,13 +3,36 @@
 }
 
 .detail-category-chart {
-    padding-left: 130px;
+    padding-top: 20px;
+    padding-left: 12%;
+    width: 45%;
 }
 
 
 .detail-time-chart {
-    padding-left: 180px;
+    padding-top: 20px;
+    padding-left: 12%;
+    width: 45%;
 }
+
+
+
+.lol-info {
+    color: white;
+    padding: 4% 0 0 20%;
+    font-size: 25px;
+    font-weight: 900;
+}
+
+.user-tier {
+    margin-bottom: 20%;
+}
+
+.user-lose {
+    margin-left: 50%;
+}
+
+
 
 
 
@@ -18,8 +41,18 @@
         display: block;
     }
 
+    .detail-category-chart {
+        padding-left: 30%;
+        width: 70%;
+    }
+
     .detail-time-chart {
-        padding-left: 130px;
+        padding-left: 30%;
         padding-top: 50px;
+        width: 70%;
+    }
+
+    .lol-info {
+        padding: 0;
     }
 }

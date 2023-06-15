@@ -112,6 +112,11 @@ function Detail() {
                     <p>이번달은 <span style={{color:'skyblue'}}>{statsMain.score_count}</span>회의 욕설을 하였습니다.</p>
                     <p>욕설 중 `{statsMain.category_name}`에 관한 욕설을 가장 많이 사용하셨습니다.</p>
                 </div>
+                <div className="lol-info">
+                    <p className="user-tier">LoL 티어 : {lolUser.tier}</p>
+                    <span className="user-win"><span style={{color:'red'}}>승</span>: {lolUser.wins ? lolUser.wins : 0}</span>
+                    <span className="user-lose"><span style={{color:'skyblue'}}>패</span>: {lolUser.losses ? lolUser.losses : 0}</span>
+                </div>
             </div>
             <div className='detail-chart-container'>
                 <div className="detail-category-chart">
