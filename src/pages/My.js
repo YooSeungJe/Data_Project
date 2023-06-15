@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import * as Api from '../api.js'
 import Header from './Header';
 import './css/My.css';
 import { Doughnut } from 'react-chartjs-2';
+import buttonStyles from './css/Button.module.css';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
@@ -11,8 +12,13 @@ function My() {
   const [userStatusData, setUserStatusData] = useState([]);
   const [userReportedData, setUserReportedData] = useState([]);
   const [userReportingData, setUserReportingData] = useState([]);
+  const [userReportList, setUserReportList] = useState([]);
 
-
+  //페이지네이션
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(1);
+  const [sort, SetSort] = useState('new');
+  const [statusPage, SetStatusPage] = useState('all');
 
   useEffect(() => {
     const fetchUserInfo = async () => {
@@ -143,13 +149,30 @@ function My() {
       },
     ],
   };
+// report 목록 가져오기 + 페이지네이션
+  const fetchMyReportList = useCallback(async ()=>{
+     const response = await Api.get(`/report/my?sort=${sort}&status=${statusPage}&currentPage=${currentPage}`)
+     setUserReportList(response.data);
+     setTotalPage(response.totalPages);
+   }, [sort, statusPage, currentPage])
 
+  useEffect(()=>{
+    fetchMyReportList();
+  }, [fetchMyReportList, sort, statusPage, currentPage])
+
+  const statusList = ['pending', 'completed', 'rejected', 'all'];
+  const sortList = ['old', 'new'];
+  const pageNumbers = [];
+    for(let i = 0; i < totalPage; i++) {
+      pageNumbers.push(i);
+    }
   
-
-
-
-
-
+  const handleClickDetail = async (report) => {
+    const reportId = report.id;
+    const response = await Api.get(`/admin/report/${reportId}`)
+    console.log(response);
+  }
+// 사진 파일
   const bronze_tier = process.env.PUBLIC_URL + '/브론즈.png';
   const silver_tier = process.env.PUBLIC_URL + '/실버.png';
   const gold_tier = process.env.PUBLIC_URL + '/골드.png';
@@ -171,8 +194,6 @@ function My() {
         : '',
   };
   
-  
-
 
   return (
     <div className="my-back">
@@ -198,7 +219,43 @@ function My() {
           <Doughnut data={abuseCntByCategory}  options={{color:'white'}}/>
         </div>
         <div className="reports-container">
-          신고 목록
+        <div className='radio-container'>
+          <div className="status-container">
+            {statusList.map((stat, index) => (
+            <div key={index}>
+              <input type="radio" id={`radio${index}`} name="radioGroup1" value={stat} onClick={()=>{SetStatusPage(stat)}}/>
+              <label for={`radio${index}`}>{stat}</label>
+            </div>
+            ))}
+          </div>
+          <div className="sort-container">
+            {sortList.map((sort, index) => (
+            <div key={index}>
+              <input type="radio" id={`radio${index}`} name="radioGroup2" value={sort} onClick={()=>{SetSort(sort)}}/>
+              <label for={`radio${index}`}>{sort}</label>
+            </div>
+            ))}
+          </div>
+        </div>
+          {userReportList.map((userReport)=>{
+            return (
+              <div key={userReport.id} className='report-card'>
+              <div key={userReport.id*100} className='report-card-content'>
+                <h2>욕한 놈: {userReport.attacker_id}</h2>
+                <h3>등록일: {userReport.created_at}</h3>
+              </div>
+                <button className='status-button'>{userReport.status.charAt()}</button>
+                <button className={buttonStyles.button} onClick={()=>(handleClickDetail(userReport))}>
+                  <span className={buttonStyles.button_top}>상세 보기</span>
+                </button>
+              </div>
+            )
+          })}
+          <div className='page-number'>
+              <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>이전</button>
+                {pageNumbers.map(number =>(<button key={number} onClick={() => setCurrentPage(number)} style={{ backgroundColor: number === currentPage ? 'blue' : 'white' }}>{number+1}</button>))}
+              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>다음</button>
+          </div>
         </div>
       </div>
     </div>
