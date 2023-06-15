@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Header from './Header';
 import '../pages/css/About.css';
 import axios from 'axios';
-import { Bar, Pie } from 'react-chartjs-2';
-import Chart from 'chart.js/auto';
 
 // export default function About() {
 const About = () => {
