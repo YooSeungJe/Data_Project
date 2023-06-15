@@ -1,25 +1,52 @@
-/* About.css */
-/* 이 파일은 about.js 컴포넌트에 대한 스타일과 레이아웃을 정의합니다 */
-
 .About-page {
   background-color: black;
   color: white;
   text-align: center;
+}
+.function-benefit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.function-benefit > div {
+  flex-basis: 45%;
 }
 
 .about-text {
   margin-bottom: 50px;
   padding: 20px;
 }
+
+/* .chart-container {
+  width: 400px;
+  height: 300px;
+  background-color: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+  color: red;
+} */
+
+/* .function-benefit {
+  display: flex;
+  justify-content: space-between;
+}
+
+.function-benefit > div {
+  flex-basis: 45%;
+} */
+
 .About-container {
   /* padding-top: 5%; */
-  font-size: 15;
+  font-size: 15px;
   display: flex;
   width: 100%;
   margin: 0 auto;
   padding-top: 5px;
   padding-left: 20%;
   padding-right: 20%;
+  padding-bottom: 50px;
   background-color: rgb(4, 3, 8);
   color: white;
   border: 1px solid black;
@@ -83,11 +110,13 @@
 }
 
 .chart-image {
-  max-width: 400px; /* Set the maximum width for chart3 image */
+  max-width: 800px; /* Set the maximum width for chart3 image */
   height: auto; /* Automatically adjust the height while maintaining aspect ratio */
   display: block;
-  margin: 20px auto; /* Center-align the image horizontally with top and bottom margin */
+  margin: 20px auto;
+  margin-bottom: 50px;
 }
+
 .chart-image.chart3 {
   max-width: 400px; /* Set the maximum width for chart3 image */
   height: auto; /* Automatically adjust the height while maintaining aspect ratio */
