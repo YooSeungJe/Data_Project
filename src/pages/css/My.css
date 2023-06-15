@@ -2,7 +2,7 @@
     background-image: url('/public/아케인.jpg');
     background-size: cover;
     background-position: center;
-    height: 150vh;
+    height: 250vh;
     min-height: 1000px;
     width: 100%;
 }
@@ -46,30 +46,64 @@
     display: flex;
 }
 
-.category-chart {
+.chart-container .inchart {
     flex: 1;
+}
+.category-chart {
     padding-top: 50px;
     width: 700px;
     height: 700px;
     padding-left: 40px;
 }
 
+/*report 불러오기*/
 .reports-container {
-    flex: 1;
-    width: auto;
     height: auto;
 }
 
-.report-card {
+/*status에 따라서 테두리 변경*/
+.report-card-rejected {
+    border: 3px solid #FF5A5A;
     margin: 1rem;
     padding: 1rem;
-    height: 5rem;
+    height: auto;
     width: auto;
-    border-radius: 0.75rem;
-    background-color: rgb(216, 216, 216);
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+    color: white;
     display: flex;
-    align-items: center; 
-    justify-content: space-between;
+    align-items: row; 
+}
+
+.report-card-completed {
+    border: 3px solid #4374D9;
+    margin: 1rem;
+    padding: 1rem;
+    height: auto;
+    width: auto;
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    align-items: row; 
+}
+
+.report-card-pending{
+    border: 3px solid #A6A6A6;
+    margin: 1rem;
+    padding: 1rem;
+    height: auto;
+    width: auto;
+    background: rgb(0, 0, 0);
+    border-radius: 20px;
+    color: white;
+    display: flex;
+    align-items: row; 
+}
+/**/
+
+.report-card-content {
+    flex: 1;
 }
 
 .report-card h2{
@@ -80,9 +114,40 @@
     font-size: 1.2rem;
 }
 
+.in-detail-card {
+    background: rgb(0, 0, 0);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    margin: 0.5rem;
+    padding: 1rem;
+    height: 1rem;
+    width: auto;
+    display: flex;
+    align-items: center; 
+    justify-content: space-between;
+}
+
+.in-detail-card h2 {
+    font-size: 1.2rem;
+}
+
 .page-number {
     display: flex;
     justify-content: center;
+}
+
+.status-container {
+    background: rgb(0, 0, 0);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    color: white;
+}
+
+.sort-container {
+    background: rgb(0, 0, 0);
+    border: 2px solid rgb(255, 255, 255);
+    border-radius: 20px;
+    color: white;
 }
 
 @media screen and (max-width: 960px) {
@@ -109,10 +174,59 @@
     }
 
     .category-chart {
-        padding-left: 70px;
+        padding-left: 100px;
     }
 
     .my-back {
         height: 300vh;
     }
+}
+
+/*상세보기 버튼*/
+.detail-button {
+    --green: #1BFD9C;
+    font-size: 15px;
+    padding: 0.7em 2.7em;
+    letter-spacing: 0.06em;
+    position: relative;
+    font-family: inherit;
+    border-radius: 0.6em;
+    overflow: hidden;
+    transition: all 0.3s;
+    line-height: 1.4em;
+    border: 2px solid var(--green);
+    background: linear-gradient(to right, rgba(27, 253, 156, 0.1) 1%, transparent 40%,transparent 60% , rgba(27, 253, 156, 0.1) 100%);
+    color: var(--green);
+    box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.4), 0 0 9px 3px rgba(27, 253, 156, 0.1);
+}
+  
+.detail-button:hover {
+    color: #82ffc9;
+    box-shadow: inset 0 0 10px rgba(27, 253, 156, 0.6), 0 0 9px 3px rgba(27, 253, 156, 0.2);
+}
+  
+.detail-button:before {
+    content: "";
+    position: absolute;
+    left: -4em;
+    width: 4em;
+    height: 100%;
+    top: 0;
+    transition: transform .4s ease-in-out;
+    background: linear-gradient(to right, transparent 1%, rgba(27, 253, 156, 0.1) 40%,rgba(27, 253, 156, 0.1) 60% , transparent 100%);
+}
+  
+.detail-button:hover:before {
+    transform: translateX(15em);
+}
+
+/*stat 글자 색*/
+.label-pending {
+    color : #A6A6A6;
+}
+.label-completed {
+    color :#4374D9;
+}
+.label-rejected {
+    color :#FF5A5A;
 }
