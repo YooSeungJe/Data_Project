@@ -89,7 +89,7 @@ const Statistics = () => {
     labels: abuseCntByCategoryData.map(item => item.categoryName),
     datasets: [
       {
-        label: '신고 횟수',
+        label: '욕설 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
         backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
         borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
@@ -192,7 +192,7 @@ const Statistics = () => {
     labels: reportCntByTimeData.map(item => item.hourRange),
     datasets: [
       {
-        label: '신고 횟수',
+        label: '신고 건수',
         data: reportCntByTimeData.map(item => item.count),
         backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
         borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
@@ -244,28 +244,28 @@ const Statistics = () => {
           </div>
         </div>
         <div style={{display:'flex', height:'600px', paddingBottom:'20px'}} className='chart-back'>
-          <div style={{width:'40%', padding:'20px 0 40px 0', marginLeft:'140px'}}>
+          <div style={{width:'40%', padding:'20px 0 40px 0', marginLeft:'170px'}}>
             <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'190px'}}>카테고리별</h4>
             <Pie data={abuseCntByCategory} />
           </div>
-          <div style={{width:'40%', padding:'20px 0 40px 0',marginLeft:'180px'}}>
+          <div style={{width:'40%', padding:'20px 0 40px 0',marginLeft:'170px'}}>
             <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>시간대별</h4>
             <Pie data={reportCntByTime} />
           </div>
         </div>
         <div>
           <div style={{width:'65%', marginLeft:'280px',marginTop:'30px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'450px'}}>날짜별 욕설추이</h4>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'500px'}}>날짜별 욕설추이</h4>
             <Line data={reportCntByMonth} />
           </div>
         </div>
         <div style={{display:'flex', height:'600px'}}>
           <div style={{width:'40%', marginLeft:'110px',marginTop:'50px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>티어별 욕설횟수</h4>
+            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>티어별 신고 건수</h4>
             <Bar data={reportTierRatio} />
           </div>
           <div style={{width:'40%', marginLeft:'100px',marginTop:'50px'}}>
-          <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>Manner-grade별 욕설횟수</h4>
+          <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>Manner-grade별 유저 수</h4>
             <Bar data={loluserCntByMannerGrade} />
           </div>
         </div>
