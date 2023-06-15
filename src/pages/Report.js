@@ -49,7 +49,10 @@ export default function Report () {
             console.log(localStorage.getItem("token"));
             const response = await Api.postFormData('/report/register', data);
             console.log(response);
-            return response;
+            if (response) {
+                alert('제출 성공');
+                navigate('/');
+            }
           } catch (error) {
             console.error('POST request failed', error);
           }

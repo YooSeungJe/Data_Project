@@ -123,15 +123,15 @@ function Home() {
     width: '140px',
     marginLeft: '10px',
     backgroundImage:
-      lolUser && lolUser.manner_grade === 'bronze'
-        ? `url(${bronze_tier})`
-        : lolUser && lolUser.manner_grade === 'silver'
-        ? `url(${silver_tier}})`
-        : lolUser && lolUser.manner_grade === 'gold'
-        ? `url(${gold_tier})`
-        : lolUser && lolUser.manner_grade === 'Gentle'
-        ? `url(${gentle_tier})`
-        : '',
+    lolUser && lolUser.manner_grade === 'bronze'
+      ? `url(${bronze_tier})`
+      : lolUser && lolUser.manner_grade === 'silver'
+      ? `url(${silver_tier})` // 수정: 중괄호 오류 수정
+      : lolUser && lolUser.manner_grade === 'gold'
+      ? `url(${gold_tier})`
+      : lolUser && lolUser.manner_grade === 'gentle' // 수정: 'Gentle' 대소문자 구분 수정
+      ? `url(${gentle_tier})`
+      : '',
   };
 
   return (
