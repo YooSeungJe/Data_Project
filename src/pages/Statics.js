@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as Api from '../api.js'
+import * as Api from '../api.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import './css/Statics.css';
@@ -13,6 +13,7 @@ const Statistics = () => {
   const [reportCntByTimeData, setReportCntByTimeData] = useState([]); // 시간대 별 욕설 당한 횟수
   const [userTotalCnt, setUserTotalCnt] = useState([]);
   const [reportTotal, setReportTotal] = useState([]);
+  const [top10, setTop10] = useState([]);
   useEffect(() => {
     fetchReportTierRatioData();
     fetchReportCntByMonth();
@@ -22,14 +23,13 @@ const Statistics = () => {
     fetchreportCntByTimeData();
     fetchUserTotalCnt();
     fetchReportTotalCnt();
+    fetchTop10();
   }, []);
 
   // 성별
   const fetchGenderData = async () => {
     try {
-      const response = await Api.get(
-        '/stats/genderRatio'
-      );
+      const response = await Api.get('/stats/genderRatio');
       const genderRatioData = response;
       setGenderData(genderRatioData);
     } catch (error) {
@@ -51,9 +51,7 @@ const Statistics = () => {
   // 티어별 신고 횟수
   const fetchReportTierRatioData = async () => {
     try {
-      const response = await Api.get(
-        '/stats/reportTierRatio'
-      );
+      const response = await Api.get('/stats/reportTierRatio');
       const reportTierRatio = response;
       setReportTierRatioData(reportTierRatio);
     } catch (error) {
@@ -75,9 +73,7 @@ const Statistics = () => {
   // 카테고리별 누적 횟수
   const fetchAbuseCntByCategory = async () => {
     try {
-      const response = await Api.get(
-        '/stats/abuseCntByCategory'
-      );
+      const response = await Api.get('/stats/abuseCntByCategory');
       const abuseCntByCategory = response;
       setAbuseCntByCategoryData(abuseCntByCategory);
     } catch (error) {
@@ -91,9 +87,25 @@ const Statistics = () => {
       {
         label: '욕설 횟수',
         data: abuseCntByCategoryData.map(item => item.count),
-        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
-        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
-        borderDash:[0],
+        backgroundColor: [
+          '#DAD9FF',
+          '#003399',
+          '#4C4C4C',
+          '#F6F6F6',
+          '#005766',
+          '#3F0099',
+          '#6B66FF',
+        ],
+        borderColor: [
+          '#DAD9FF',
+          '#003399',
+          '#4C4C4C',
+          '#F6F6F6',
+          '#005766',
+          '#3F0099',
+          '#6B66FF',
+        ],
+        borderDash: [0],
       },
     ],
   };
@@ -101,9 +113,7 @@ const Statistics = () => {
   // manner_grade별 누적 횟수
   const fetchUserCntByMannerGrade = async () => {
     try {
-      const response = await Api.get(
-        '/stats/loluserCntByMannerGrade'
-      );
+      const response = await Api.get('/stats/loluserCntByMannerGrade');
       const loluserCntByMannerGrade = response;
       setUserCntByMannerGradeData(loluserCntByMannerGrade);
     } catch (error) {
@@ -125,9 +135,7 @@ const Statistics = () => {
   // 월별 신고 누적 횟수
   const fetchReportCntByMonth = async () => {
     try {
-      const response = await Api.get(
-        '/stats/reportCntByMonth'
-      );
+      const response = await Api.get('/stats/reportCntByMonth');
       const reportCntByMonth = response;
       setReportCntByMonthData(reportCntByMonth);
     } catch (error) {
@@ -140,7 +148,7 @@ const Statistics = () => {
     labels: reportCntByMonthData.map(item => item.month),
     datasets: [
       {
-        label:'신고건수',
+        label: '신고건수',
         data: reportCntByMonthData.map(item => item.count),
         backgroundColor: [
           '#FF6384',
@@ -172,15 +180,11 @@ const Statistics = () => {
     ],
   };
 
-  
-
   // 시간대 별 욕설 당한 횟수
   // 티어별 신고 횟수
   const fetchreportCntByTimeData = async () => {
     try {
-      const response = await Api.get(
-        '/stats/reportCntByTime'
-      );
+      const response = await Api.get('/stats/reportCntByTime');
       const reportCntByTime = response;
       setReportCntByTimeData(reportCntByTime);
     } catch (error) {
@@ -194,20 +198,33 @@ const Statistics = () => {
       {
         label: '신고 건수',
         data: reportCntByTimeData.map(item => item.count),
-        backgroundColor: ['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
-        borderColor:['#DAD9FF','#003399','#4C4C4C','#F6F6F6','#005766','#3F0099','#6B66FF'],
-        borderDash:[0],
+        backgroundColor: [
+          '#DAD9FF',
+          '#003399',
+          '#4C4C4C',
+          '#F6F6F6',
+          '#005766',
+          '#3F0099',
+          '#6B66FF',
+        ],
+        borderColor: [
+          '#DAD9FF',
+          '#003399',
+          '#4C4C4C',
+          '#F6F6F6',
+          '#005766',
+          '#3F0099',
+          '#6B66FF',
+        ],
+        borderDash: [0],
       },
     ],
   };
 
-
   //총이용자수
   const fetchUserTotalCnt = async () => {
     try {
-      const response = await Api.get(
-        '/stats/userTotalCnt'
-      );
+      const response = await Api.get('/stats/userTotalCnt');
       const userTotal = response;
       setUserTotalCnt(userTotal);
     } catch (error) {
@@ -218,28 +235,59 @@ const Statistics = () => {
   //총신고수
   const fetchReportTotalCnt = async () => {
     try {
-      const response = await Api.get(
-        '/stats/reportTotalCnt'
-      );
+      const response = await Api.get('/stats/reportTotalCnt');
       setReportTotal(response);
     } catch (error) {
       console.error(error);
     }
   };
 
-
+  //top10 욕쟁이
+  const fetchTop10 = async () => {
+    try {
+      const response = await Api.get('/stats/reportLoluserTopTen');
+      setTop10(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className='parent-container'>
       <div className='chart-back'>
         <div>
-          <Header/>
+          <Header />
         </div>
-        <div style={{display:'flex', height:'100px', color:'white',backgroundColor:'#353535'}}>
-          <div style={{margin:'auto', fontSize:'30px',fontWeight:'bold'}}>
-            총 가입자수: <span style={{fontWeight:'bolder', fontSize:'32px', color:'#6B66FF'}}>{userTotalCnt}</span>
-            <span style={{marginLeft:'150px'}}>
-              전체 신고건수 : <span style={{fontWeight:'bolder', fontSize:'32px', color:'#F15F5F'}}>{reportTotal}</span>
+        <div
+          style={{
+            display: 'flex',
+            height: '100px',
+            color: 'white',
+            backgroundColor: '#353535',
+          }}
+        >
+          <div style={{ margin: 'auto', fontSize: '30px', fontWeight: 'bold' }}>
+            총 가입자수:{' '}
+            <span
+              style={{
+                fontWeight: 'bolder',
+                fontSize: '32px',
+                color: '#6B66FF',
+              }}
+            >
+              {userTotalCnt}
+            </span>
+            <span style={{ marginLeft: '150px' }}>
+              전체 신고건수 :{' '}
+              <span
+                style={{
+                  fontWeight: 'bolder',
+                  fontSize: '32px',
+                  color: '#F15F5F',
+                }}
+              >
+                {reportTotal}
+              </span>
             </span>
           </div>
         </div>
@@ -270,10 +318,29 @@ const Statistics = () => {
           </div>
         </div>
       </div>
+      <div
+        className='top10-abuser'
+        style={{
+          display: 'flex',
+          height: '100px',
+          color: 'white',
+          backgroundColor: '#353535',
+        }}
+      >
+        {top10.map((user, index) => {
+          return (
+            <div
+              key={index}
+              style={{ margin: 'auto', fontSize: '5px', fontWeight: 'bold' }}
+            >
+              <p>{user.attackerId}</p>
+              <p>{user.count}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
 
 export default Statistics;
-
-
