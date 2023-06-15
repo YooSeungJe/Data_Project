@@ -23,7 +23,6 @@ export default function Admin () {
     const fetchData = useCallback(async () => {
       const result = await Api.get(`/admin/report?sort=${sort}&status=${statusPage}&currentPage=${currentPage}`);
       setAsserts(result.data);
-      console.log(result.data);
       setTotalPage(result.totalPages);
     },[sort, statusPage, currentPage]);
 
@@ -125,8 +124,8 @@ export default function Admin () {
 
     // 페이지 번호
     const pageNumbers = [];
-    for(let i = -1; i < totalPage; i++) {
-      pageNumbers.push(i+1);
+    for(let i = 0; i < totalPage; i++) {
+      pageNumbers.push(i);
     }
 
     // 체크 박스
@@ -170,7 +169,7 @@ export default function Admin () {
           ))}
             <div className='page-number'>
               <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>이전</button>
-              {pageNumbers.map(number => (<button key={number} onClick={() => setCurrentPage(number)} style={{ backgroundColor: number === currentPage ? 'blue' : 'white' }}>{number}</button>))}
+              {pageNumbers.map(number => (<button key={number} onClick={() => setCurrentPage(number)} style={{ backgroundColor: number === currentPage ? 'blue' : 'white' }}>{number+1}</button>))}
               <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>다음</button>
             </div>
         </div>
