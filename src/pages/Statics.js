@@ -28,7 +28,7 @@ const Statistics = () => {
   const fetchGenderData = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/genderRatio'
+        '/stats/genderRatio'
       );
       const genderRatioData = response;
       setGenderData(genderRatioData);
@@ -52,7 +52,7 @@ const Statistics = () => {
   const fetchReportTierRatioData = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/reportTierRatio'
+        '/stats/reportTierRatio'
       );
       const reportTierRatio = response;
       setReportTierRatioData(reportTierRatio);
@@ -76,7 +76,7 @@ const Statistics = () => {
   const fetchAbuseCntByCategory = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/abuseCntByCategory'
+        '/stats/abuseCntByCategory'
       );
       const abuseCntByCategory = response;
       setAbuseCntByCategoryData(abuseCntByCategory);
@@ -102,7 +102,7 @@ const Statistics = () => {
   const fetchUserCntByMannerGrade = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/loluserCntByMannerGrade'
+        '/stats/loluserCntByMannerGrade'
       );
       const loluserCntByMannerGrade = response;
       setUserCntByMannerGradeData(loluserCntByMannerGrade);
@@ -126,7 +126,7 @@ const Statistics = () => {
   const fetchReportCntByMonth = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/reportCntByMonth'
+        '/stats/reportCntByMonth'
       );
       const reportCntByMonth = response;
       setReportCntByMonthData(reportCntByMonth);
@@ -179,7 +179,7 @@ const Statistics = () => {
   const fetchreportCntByTimeData = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/reportCntByTime'
+        '/stats/reportCntByTime'
       );
       const reportCntByTime = response;
       setReportCntByTimeData(reportCntByTime);
@@ -206,7 +206,7 @@ const Statistics = () => {
   const fetchUserTotalCnt = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/userTotalCnt'
+        '/stats/userTotalCnt'
       );
       const userTotal = response;
       setUserTotalCnt(userTotal);
@@ -219,7 +219,7 @@ const Statistics = () => {
   const fetchReportTotalCnt = async () => {
     try {
       const response = await Api.get(
-        'http://localhost:3001/stats/reportTotalCnt'
+        '/stats/reportTotalCnt'
       );
       setReportTotal(response);
     } catch (error) {
