@@ -185,6 +185,7 @@ function Home() {
           aria-label="Recipient's username"
           aria-describedby='button-addon2'
           onChange={e => setNickname(e.target.value)}
+          onKeyUp={e => {if(e.key === 'Enter'){handleButtonClick();}}}
         />
         <button
           onClick={handleButtonClick}

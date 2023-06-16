@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
@@ -12,6 +12,14 @@ import About from './pages/About';
 
 function App() {
   // localStorage.setItem('token', JSON.stringify({ userId: '갑수' })); // 토큰 테스트 나중에 지울 것
+  useEffect(() => {
+    // debugger;
+    console.log("왜 두번..?")
+    return () => {
+      
+    }
+  }, []);
+  
   return (
     <div>
       <Router>

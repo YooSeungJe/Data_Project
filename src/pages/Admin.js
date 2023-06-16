@@ -29,14 +29,14 @@ export default function Admin () {
         setTotalPage(result.totalPages);
       } catch (error) {
         console.error(error);
-        alert('접근권한이 없습니다');
-        navigate('/')
+        navigate('/');
+        alert('접근권한이 없습니다. 넘보지마십쇼!');
       }
     }, [sort, statusPage, currentPage]);
 
     useEffect(() => {
         fetchData();
-    }, [fetchData, sort, statusPage, currentPage]);
+    }, []);
 
   // report case list를 반환하는데, 반환값을 state에 저장하지 않는 방식 선택 & reportlist 관련 사진 불러오기
     const getReportList = useCallback(async () => {
