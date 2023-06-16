@@ -14,12 +14,50 @@ const About = () => {
   const chart4 =
     process.env.PUBLIC_URL + '/사이버폭력 피해 발생 시 법적 처벌 인지 여부.png';
 
+  const developers = [
+    {
+      email: '사이버범죄 신고시스템 (ECRM)',
+      link: 'https://ecrm.police.go.kr/minwon/main',
+    },
+  ];
+
+  const Contacts = () => {
+    return (
+      <div className='py-4 p-4 md:p-20'>
+        <h2 className='text-2xl font-bold mb-4'>
+          사이버범죄 신고시스템 (ECRM)
+        </h2>
+
+        <div className='grid grid-cols-3 gap-4'>
+          {developers.map((developer, index) => (
+            <div key={index} className='bg-navy rounded-lg shadow-md p-4'>
+              <h3 className='text-lg font-semibold mb-2 text-black'>
+                {developer.name}
+              </h3>
+              <p className='mb-1'>
+                신고 사이트 :
+                <a
+                  href={developer.link}
+                  target='_blank'
+                  rel='noopener noreferrer'
+                  className='link-white'
+                >
+                  {developer.email}
+                </a>
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Header />
       <div className='About-container'>
         <div className='logo'>
-          <img className='logo-image' src={logo} alt='로고' />
+          <img className='logo-image' src={logo} alt='로고' draggable='false' />
         </div>
         <div className='tab-content'>
           <h3>프로그램 소개</h3>
@@ -37,12 +75,14 @@ const About = () => {
             className='chart-image'
             src={chart1}
             alt='사이버 폭력 가해 경로1'
+            draggable='false'
           />
 
           <img
             className='chart-image'
             src={chart2}
             alt='사이버 폭력 가해 동기'
+            draggable='false'
           />
 
           <div className='about-text'>
@@ -59,6 +99,7 @@ const About = () => {
                   className='chart-image chart3'
                   src={chart3}
                   alt='사이버폭력 피해 경험 후 무대응 이유'
+                  draggable='false'
                 />
               </div>
               <div>
@@ -72,6 +113,7 @@ const About = () => {
                   className='chart-image chart3'
                   src={chart4}
                   alt='사이버폭력 피해 발생 시 법적 처벌 인지 여부'
+                  draggable='false'
                 />
               </div>
             </div>
@@ -91,6 +133,7 @@ const About = () => {
             기울이고자 합니다.
           </p>
         </div>
+        <Contacts />
       </div>
       );
     </>
