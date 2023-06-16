@@ -3,9 +3,11 @@
   color: white;
   text-align: center;
 }
+
 .function-benefit {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
 .function-benefit > div {
@@ -13,11 +15,11 @@
 }
 
 .about-text {
-  margin-bottom: 50px;
+  margin-bottom: 20px; /* 텍스트 아래 여백 조정 */
   padding: 20px;
 }
 
-/* .chart-container {
+.chart-container {
   width: 400px;
   height: 300px;
   background-color: black;
@@ -26,36 +28,24 @@
   align-items: center;
   margin: 0 auto;
   color: red;
-} */
-
-/* .function-benefit {
-  display: flex;
-  justify-content: space-between;
 }
 
-.function-benefit > div {
-  flex-basis: 45%;
-} */
-
 .About-container {
-  /* padding-top: 5%; */
   font-size: 15px;
   display: flex;
   width: 100%;
   margin: 0 auto;
-  padding-top: 5px;
-  padding-left: 20%;
-  padding-right: 20%;
-  padding-bottom: 50px;
+  padding: 5px 20%;
+  padding-bottom: 30px; /* 하단 여백 조정 */
   background-color: rgb(4, 3, 8);
   color: white;
   border: 1px solid black;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   flex-direction: column;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
-  text-align: center; /* 텍스트 중앙 정렬 */
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   text-shadow: 2px 2px 4px #6fe7fc;
 }
 
@@ -70,6 +60,7 @@
 
 .About-footer {
   text-align: center;
+  margin-top: 20px;
 }
 
 .component {
@@ -98,8 +89,8 @@
 }
 
 .logo-image {
-  width: 500px; /* 원하는 크기로 설정 */
-  height: auto; /* 가로 크기에 따라 자동으로 조절되도록 설정 */
+  width: 500px;
+  height: auto;
 }
 
 .image-container {
@@ -110,16 +101,24 @@
 }
 
 .chart-image {
-  max-width: 800px; /* Set the maximum width for chart3 image */
-  height: auto; /* Automatically adjust the height while maintaining aspect ratio */
+  max-width: 800px;
+  height: auto;
   display: block;
   margin: 20px auto;
-  margin-bottom: 50px;
+  margin-bottom: 20px; /* 이미지 아래 여백 조정 */
 }
 
 .chart-image.chart3 {
-  max-width: 400px; /* Set the maximum width for chart3 image */
-  height: auto; /* Automatically adjust the height while maintaining aspect ratio */
+  max-width: 600px;
+  height: auto;
   display: block;
-  margin: 20px auto; /* Center-align the image horizontally with top and bottom margin */
+  margin: 20px auto;
+}
+
+.text-black {
+  color: white;
+}
+
+.link-white {
+  color: white;
 }
