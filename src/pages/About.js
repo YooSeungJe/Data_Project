@@ -13,7 +13,11 @@ const About = () => {
     process.env.PUBLIC_URL + '/사이버폭력 피해 경험 후 무대응 이유.png';
   const chart4 =
     process.env.PUBLIC_URL + '/사이버폭력 피해 발생 시 법적 처벌 인지 여부.png';
-
+  const chart5 = process.env.PUBLIC_URL + '/사이버 언어폭력 용인 태도.png';
+  const chart6 =
+    process.env.PUBLIC_URL + '/사이버 폭력 피해 경험 후 취한 행동.png';
+  const chart7 =
+    process.env.PUBLIC_URL + '/사이버폭력 피해 발생 시 법적 처벌 인지 여부.png';
   const developers = [
     {
       email: '사이버범죄 신고시스템 (ECRM)',
@@ -24,17 +28,15 @@ const About = () => {
   const Contacts = () => {
     return (
       <div className='py-4 p-4 md:p-20'>
-        <h2 className='text-2xl font-bold mb-4'>
+        {/* <h2 className='text-2xl font-bold mb-4'>
           사이버범죄 신고시스템 (ECRM)
-        </h2>
+        </h2> */}
 
-        <div className='grid grid-cols-3 gap-4'>
+        <div className='py-4 p-4 md:p-20'>
           {developers.map((developer, index) => (
             <div key={index} className='bg-navy rounded-lg shadow-md p-4'>
-              <h3 className='text-lg font-semibold mb-2 text-black'>
-                {developer.name}
-              </h3>
-              <p className='mb-1'>
+              <h2 className='text-2xl font-bold mb-4 mb-4'>{developer.name}</h2>
+              <h2 className='text-2xl font-bold mb-4'>
                 신고 사이트 :
                 <a
                   href={developer.link}
@@ -44,7 +46,7 @@ const About = () => {
                 >
                   {developer.email}
                 </a>
-              </p>
+              </h2>
             </div>
           ))}
         </div>
@@ -60,7 +62,39 @@ const About = () => {
           <img className='logo-image' src={logo} alt='로고' draggable='false' />
         </div>
         <div className='tab-content'>
-          <h3 style={{marginTop:"3%", fontWeight:'800', fontSize:'34px'}}>프로그램 소개</h3>
+          <h3 style={{ marginTop: '3%', fontWeight: '800', fontSize: '34px' }}>
+            사이버폭력을 바라보는 시점
+          </h3>
+
+          <li className='function-list'>사이버 언어폭력 용인 태도는 높다</li>
+          <li className='function-list'>피해를 당한 후 소극적 대응 </li>
+          <li className='function-list'>
+            사이버 폭력 법적 처벌 인지 여부 낮다
+          </li>
+
+          <div className='About-image-container'>
+            <img
+              className='About-chart-image chart3'
+              src={chart5}
+              alt='사이버 언어폭력 용인 태도'
+              draggable='false'
+            />
+            <img
+              className='About-chart-image chart3'
+              src={chart6}
+              alt='사이버폭력 피해 경험 후 취한 행동'
+              draggable='false'
+            />
+            <img
+              className='About-chart-image chart3'
+              src={chart7}
+              alt='사이버폭력 피해 발생 시 법적 처벌 인지 여부'
+              draggable='false'
+            />
+          </div>
+          <h3 style={{ marginTop: '3%', fontWeight: '800', fontSize: '34px' }}>
+            프로그램 소개
+          </h3>
           <p className='about-text'>
             사이버 언어폭력 신고 및 통계 서비스 PECO는 사이버 언어폭력에
             대응하기 위해 개발된 온라인 서비스입니다. 현대 사회에서는 물리적인
@@ -87,14 +121,16 @@ const About = () => {
 
           <div className='about-text'>
             <div className='function-benefit'>
-              <div style={{paddingTop:'4.5%'}}>
-                <h3 style={{fontWeight:"700", fontSize:'30px'}}>PECO의 기능</h3>
-                <ul className='function-list'>
-                  <li>
-                    1. 온라인 게임 상에서 발생한 욕설에 대한 신고와 검색 서비스
-                  </li>
-                  <li>2. 통계 제공</li>
-                </ul>
+              <div style={{ paddingTop: '4.5%' }}>
+                <h3 style={{ fontWeight: '700', fontSize: '30px' }}>
+                  PECO의 기능
+                </h3>
+
+                <li className='function-list'>
+                  온라인 게임 상에서 발생한 욕설에 대한 신고와 검색 서비스
+                </li>
+                <li className='function-list'>통계 제공</li>
+
                 <img
                   className='chart-image chart3'
                   src={chart3}
@@ -103,12 +139,16 @@ const About = () => {
                 />
               </div>
               <div>
-                <h3 style={{fontWeight:"700", fontSize:'30px'}}>PECO의 혜택</h3>
-                <ul className='benefit-list'>
-                  <li>1. 사이버 언어폭력 대응 방법 습득</li>
-                  <li>2. 안전한 온라인 환경 조성</li>
-                  <li>3. 사이버 언어폭력 통계 제공</li>
-                </ul>
+                <h3 style={{ fontWeight: '700', fontSize: '30px' }}>
+                  PECO의 혜택
+                </h3>
+
+                <li className='function-list'>
+                  사이버 언어폭력 대응 방법 습득
+                </li>
+                <li className='function-list'>안전한 온라인 환경 조성</li>
+                <li className='function-list'>사이버 언어폭력 통계 제공</li>
+
                 <img
                   className='chart-image chart3'
                   src={chart4}
@@ -119,7 +159,7 @@ const About = () => {
             </div>
           </div>
 
-          <h3 style={{fontSize:'35px', fontWeight:'800'}}>PECO의 목표</h3>
+          <h3 style={{ fontSize: '35px', fontWeight: '800' }}>PECO의 목표</h3>
           <p className='about-text'>
             PECO는 피해자들에게 적극적인 대응 방식을 제공하여 기존의 소극적인
             대응 방식을 극복하고자 합니다. 또한, 통계 자료를 통해 개인 및 단체
