@@ -6,16 +6,6 @@
   text-align: center;
 }
 
-.function-benefit {
-  display: flex;
-  justify-content: space-between;
-  gap: 20px;
-}
-
-.function-benefit > div {
-  flex-basis: 45%;
-}
-
 .about-text {
   font-size: 22px;
   margin-bottom: 20px; /* 텍스트 아래 여백 조정 */
@@ -39,6 +29,10 @@
   align-items: center;
   text-align: center;
   /* text-shadow: 2px 2px 4px #6fe7fc; */
+}
+
+.About-chartimage-box {
+  padding-right: 300px;
 }
 
 .About-content {
@@ -119,4 +113,17 @@
 .function-list .benefit-list {
   font-family: 'Noto Sans KR', sans-serif;
   font-size: 25px;
+}
+
+.About-chart-image {
+  width: 480px;
+  height: 500px;
+}
+
+b {
+  font-size: 30px;
+}
+
+a .doun{
+  text-decoration: none;
 }

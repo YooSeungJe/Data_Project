@@ -47,11 +47,15 @@ export default function Report () {
 
         try {
             console.log(localStorage.getItem("token"));
-            const response = await Api.postFormData('/report/register', data);
-            console.log(response);
-            if (response) {
+            const response1 = await Api.get(`/lolUser/${attackerId}`);
+            if (response1 == null) {
+                alert('존재하지 않는 유저입니다.')
+            } else {
+            const response2 = await Api.postFormData('/report/register', data);
+            if (response2) {
                 alert('제출 성공');
                 navigate('/');
+            }
             }
           } catch (error) {
             console.error('POST request failed', error);
