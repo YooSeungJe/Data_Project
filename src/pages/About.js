@@ -60,7 +60,7 @@ const About = () => {
           <img className='logo-image' src={logo} alt='로고' draggable='false' />
         </div>
         <div className='tab-content'>
-          <h3>프로그램 소개</h3>
+          <h3 style={{marginTop:"3%", fontWeight:'800', fontSize:'34px'}}>프로그램 소개</h3>
           <p className='about-text'>
             사이버 언어폭력 신고 및 통계 서비스 PECO는 사이버 언어폭력에
             대응하기 위해 개발된 온라인 서비스입니다. 현대 사회에서는 물리적인
@@ -87,8 +87,8 @@ const About = () => {
 
           <div className='about-text'>
             <div className='function-benefit'>
-              <div>
-                <h3>PECO의 기능</h3>
+              <div style={{paddingTop:'4.5%'}}>
+                <h3 style={{fontWeight:"700", fontSize:'30px'}}>PECO의 기능</h3>
                 <ul className='function-list'>
                   <li>
                     1. 온라인 게임 상에서 발생한 욕설에 대한 신고와 검색 서비스
@@ -103,7 +103,7 @@ const About = () => {
                 />
               </div>
               <div>
-                <h3>PECO의 혜택</h3>
+                <h3 style={{fontWeight:"700", fontSize:'30px'}}>PECO의 혜택</h3>
                 <ul className='benefit-list'>
                   <li>1. 사이버 언어폭력 대응 방법 습득</li>
                   <li>2. 안전한 온라인 환경 조성</li>
@@ -119,7 +119,7 @@ const About = () => {
             </div>
           </div>
 
-          <h3>PECO의 목표</h3>
+          <h3 style={{fontSize:'35px', fontWeight:'800'}}>PECO의 목표</h3>
           <p className='about-text'>
             PECO는 피해자들에게 적극적인 대응 방식을 제공하여 기존의 소극적인
             대응 방식을 극복하고자 합니다. 또한, 통계 자료를 통해 개인 및 단체

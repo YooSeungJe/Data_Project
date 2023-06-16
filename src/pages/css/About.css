@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 .About-page {
   background-color: black;
   color: white;
@@ -15,20 +17,13 @@
 }
 
 .about-text {
+  font-size: 22px;
   margin-bottom: 20px; /* 텍스트 아래 여백 조정 */
   padding: 20px;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
-/* .chart-container {
-  width: 400px;
-  height: 300px;
-  background-color: black;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0 auto;
-  color: red;
-} */
+
 
 .About-container {
   font-size: 15px;
@@ -105,6 +100,7 @@
   display: block;
   margin: 20px auto;
   margin-bottom: 20px; /* 이미지 아래 여백 조정 */
+  margin-left: 170px;
 }
 
 .chart-image.chart3 {
@@ -120,4 +116,9 @@
 
 .link-white {
   color: white;
+}
+
+.function-list .benefit-list {
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 25px;
 }
