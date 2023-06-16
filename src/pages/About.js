@@ -56,7 +56,7 @@ const About = () => {
     <>
       <Header />
       <div className='About-container'>
-        <div className='logo'>
+        <div className='About-logo'>
           <img className='logo-image' src={logo} alt='로고' draggable='false' />
         </div>
         <div className='tab-content'>
@@ -135,7 +135,6 @@ const About = () => {
         </div>
         <Contacts />
       </div>
-      );
     </>
   );
 };

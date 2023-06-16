@@ -12,7 +12,8 @@ export default function Header() {
   const handleButtonClick = async () => {
     if (nicknameInput.trim() !== '') {
       try {
-        navigate(`/detail/${encodeURIComponent(nicknameInput)}`)
+        navigate(`/detail/${encodeURIComponent(nicknameInput)}`);
+        window.location.reload();
       } catch (error) {
         alert(error.response);
       }
