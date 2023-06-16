@@ -2,10 +2,12 @@ import {useState, useEffect, useCallback} from 'react';
 import './css/Admin.css';
 import buttonStyles from './css/Button.module.css';
 import dropdownStyles from './css/DropDown.module.css'
+import { useNavigate } from 'react-router-dom';
 import * as Api from '../api.js';
 import Header from './Header.js';
 
 export default function Admin () {
+    const navigate = useNavigate();
     const [asserts, setAsserts] = useState([]);
     const [selectedItem, setSelectedItem] = useState({});
     const [reportId, setReportId] = useState('');
@@ -21,10 +23,16 @@ export default function Admin () {
     const [statusPage, SetStatusPage] = useState('pending');
 
     const fetchData = useCallback(async () => {
-      const result = await Api.get(`/admin/report?sort=${sort}&status=${statusPage}&currentPage=${currentPage}`);
-      setAsserts(result.data);
-      setTotalPage(result.totalPages);
-    },[sort, statusPage, currentPage]);
+      try {
+        const result = await Api.get(`/admin/report?sort=${sort}&status=${statusPage}&currentPage=${currentPage}`);
+        setAsserts(result.data);
+        setTotalPage(result.totalPages);
+      } catch (error) {
+        console.error(error);
+        alert('접근권한이 없습니다');
+        navigate('/')
+      }
+    }, [sort, statusPage, currentPage]);
 
     useEffect(() => {
         fetchData();

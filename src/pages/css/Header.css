@@ -7,6 +7,8 @@
   font-style: normal;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 .header {
   display: flex;
   justify-content: space-between;
@@ -39,7 +41,7 @@
 .nav-item {
   margin-left: 20px;
   cursor: pointer;
-  font-family: 'SUIT-Regular';
+  font-family: 'Noto Sans KR', sans-serif;
   font-weight: bold;
   margin-top: 10px;
 }

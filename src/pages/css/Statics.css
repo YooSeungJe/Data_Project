@@ -1,0 +1,151 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
+.total-static {
+    display: flex;
+    height: 100px;
+    color: white;
+    background-color: black;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.pie-chart-back {
+    display: flex;
+    height: 600px;
+    padding-bottom: 20px;
+}
+
+.static-pie-chart {
+    width: 40%;
+    padding: 1% 0 2% 0;
+    margin-left: 10%;
+}
+
+
+.pie-left-title {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-left: 28%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.pie-right-title {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-left:32%;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.line-back {
+    width: 70%;
+    margin-left: 16%;
+    margin-top: 70px;
+}
+
+.line-title {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-left: 43%;
+}
+
+.bar-back {
+    display: flex;
+    height: 600px;
+}
+
+.left-bar-back {
+    width: 40%;
+    margin-left: 8%;
+    margin-top: 80px;
+}
+
+.right-bar-back {
+    width: 40%;
+    margin-left: 5%;
+    margin-top: 80px;
+}
+
+.bar-title {
+    font-size: 25px;
+    font-weight: bolder;
+    margin-left: 35%;
+}
+
+.top-button {
+    background: #FBCA1F;
+    font-family: inherit;
+    padding: 0.6em 1.3em;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    position: absolute;
+    right: 1%;
+    top: 10%;
+}
+
+.top-button:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.top-button:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
+
+.top10-abuser {
+    display: flex;
+    height: 100px;
+    color: white;
+    background-color: #353535;
+    padding-top: 7px;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+.abuser-list {
+    margin:auto;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+
+@media screen and (max-width: 960px) {
+    .pie-chart-back {
+        display: block;
+    }
+
+    .bar-back {
+        display: block;
+    }
+    .line-back {
+        margin-top: 220px;
+    }
+
+    .static-pie-chart {
+        margin-left: 30%;
+    }
+
+    .left-bar-back {
+        margin-left: 29%;
+    }
+
+    .right-bar-back {
+        margin-left: 29%;
+    }
+
+    .bar-title {
+        margin-left: 28%;
+    }
+
+    .top-button {
+        position: relative;;
+    }
+
+    .top10-abuser {
+        display: block;
+        height: 470px;
+        padding-left: 45%;
+    }
+
+}
