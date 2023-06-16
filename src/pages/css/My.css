@@ -66,6 +66,8 @@
 .reports-container {
     height: auto;
     font-family: 'Noto Sans KR', sans-serif;
+    padding-top: 50px;
+    padding-right: 30px;
 }
 
 /*status에 따라서 테두리 변경*/

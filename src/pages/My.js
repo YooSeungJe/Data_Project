@@ -299,7 +299,7 @@ function My() {
           <div className='page-number'>
               <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 0}>이전</button>
                 {pageNumbers.map(number =>(<button key={number} onClick={() => setCurrentPage(number)} style={{ backgroundColor: number === currentPage ? 'blue' : 'white' }}>{number+1}</button>))}
-              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>다음</button>
+              <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage-1}>다음</button>
           </div>
         </div>
       </div>
