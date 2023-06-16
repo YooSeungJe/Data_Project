@@ -4,7 +4,6 @@ import { Bar, Pie, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import './css/Statics.css';
 import { IoArrowDownSharp } from 'react-icons/io5';
-import { RxDotFilled } from "react-icons/rx";
 import Header from './Header';
 const Statistics = () => {
   const [genderData, setGenderData] = useState([]); // 성별
@@ -303,7 +302,7 @@ const Statistics = () => {
                   className='abuser-list'
                   key={index}
                 >
-                  <p><RxDotFilled/>{user.attackerId}</p>
+                  <p>{index + 1}. {user.attackerId}</p>
                 </div>
               );
             })}
