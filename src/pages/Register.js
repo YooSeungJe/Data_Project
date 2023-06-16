@@ -157,6 +157,7 @@ function Register() {
                   value={1}
                   checked={isMale === MALE}
                   onChange={() => setIsMale(1)}
+                  style={{ transform: 'scale(1.3)', marginRight: '5px' }}
                 ></input>
               </p>
               <p style={{ marginLeft: '30px' }}>
@@ -167,6 +168,7 @@ function Register() {
                   value={0}
                   checked={isMale === FEMALE}
                   onChange={() => setIsMale(0)}
+                  style={{ transform: 'scale(1.3)', marginRight: '5px' }}
                 ></input>
               </p>
             </div>
@@ -181,13 +183,14 @@ function Register() {
                   marginRight: '36px',
                 }}
               >
-                동의함
+                동의
                 <input
                   type='radio'
                   name='personalInfoAgree'
                   value={1}
                   checked={personalInfoAgree === 1}
                   onChange={() => setPersonalInfoAgree(1)}
+                  style={{ transform: 'scale(1.3)', marginRight: '4px' }}
                 ></input>
               </p>
             </div>
