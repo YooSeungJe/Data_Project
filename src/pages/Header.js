@@ -45,6 +45,7 @@ export default function Header() {
             className='form-control'
             placeholder='닉네임'
             onChange={e => setNicknameInput(e.target.value)}
+            onKeyUp={e => {if(e.key === 'Enter'){handleButtonClick();}}}
           />
           <button
             onClick={handleButtonClick}

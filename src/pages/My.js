@@ -3,6 +3,7 @@ import * as Api from '../api.js'
 import Header from './Header';
 import './css/My.css';
 import { Doughnut } from 'react-chartjs-2';
+import {format} from 'date-fns';
 
 function My() {
   const [userInfo, setUserInfo] = useState('');
@@ -277,7 +278,7 @@ function My() {
               <div key={userReport.id} className={`report-card-${userReport.status}`}>
               <div key={userReport.id*100} className='report-card-content'>
                 <h2>욕한 놈: {userReport.attacker_id}</h2>
-                <h3>등록일: {userReport.created_at}</h3>
+                <h3>등록일: {format(new Date(userReport.created_at),'yyyy/MM/dd HH:mm')}</h3>
                 <div>
                   {selectedUserReport && selectedUserReport.id === userReport.id && (
                     reportDetail.map((detail, index)=>{return(
