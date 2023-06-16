@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
+
 .report-page {
   display: flex;
   height: 100vh;
@@ -7,6 +9,7 @@
   width: 50%;
   padding: 20px;
   background-color: black;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .singo {

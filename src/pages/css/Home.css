@@ -15,6 +15,7 @@
 }
 
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap');
 
 .main-bar {
   padding: 20px;
@@ -33,7 +34,7 @@
   font-size: 18px;
   cursor: pointer;
   transition: all 1s;
-  font-family: 'SUIT-Regular';
+  font-family: 'Noto Sans KR', sans-serif;
 }
 
 .menu p:hover {
@@ -46,7 +47,7 @@
   display: flex;
   color: white;
   padding-top: 5px;
-  font-family: 'SUIT-Regular';
+  font-family: 'Noto Sans KR', sans-serif;
   font-size: 18px;
 }
 

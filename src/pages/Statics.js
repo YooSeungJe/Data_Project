@@ -3,6 +3,8 @@ import * as Api from '../api.js';
 import { Bar, Pie, Line } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 import './css/Statics.css';
+import { IoArrowDownSharp } from 'react-icons/io5';
+import { RxDotFilled } from "react-icons/rx";
 import Header from './Header';
 const Statistics = () => {
   const [genderData, setGenderData] = useState([]); // 성별
@@ -14,6 +16,7 @@ const Statistics = () => {
   const [userTotalCnt, setUserTotalCnt] = useState([]);
   const [reportTotal, setReportTotal] = useState([]);
   const [top10, setTop10] = useState([]);
+  const [showTop10, setShowTop10] = useState(false);
   useEffect(() => {
     fetchReportTierRatioData();
     fetchReportCntByMonth();
@@ -252,6 +255,10 @@ const Statistics = () => {
     }
   };
 
+  const handleToggleTop10 = () => {
+    setShowTop10(!showTop10);
+  };
+
   return (
     <div className='parent-container'>
       <div className='chart-back'>
@@ -259,13 +266,7 @@ const Statistics = () => {
           <Header />
         </div>
         <div
-          style={{
-            display: 'flex',
-            height: '100px',
-            color: 'white',
-            backgroundColor: '#353535',
-          }}
-        >
+          className='total-static'>
           <div style={{ margin: 'auto', fontSize: '30px', fontWeight: 'bold' }}>
             총 가입자수:{' '}
             <span
@@ -290,54 +291,50 @@ const Statistics = () => {
               </span>
             </span>
           </div>
+          <div>
+            <button onClick={handleToggleTop10} className='top-button'>TOP10 <IoArrowDownSharp/> </button>
+          </div>
         </div>
-        <div style={{display:'flex', height:'600px', paddingBottom:'20px'}} className='chart-back'>
-          <div style={{width:'40%', padding:'20px 0 40px 0', marginLeft:'170px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'190px'}}>카테고리별</h4>
+        {showTop10 && (
+          <div className='top10-abuser'>
+            {top10.map((user, index) => {
+              return (
+                <div
+                  className='abuser-list'
+                  key={index}
+                >
+                  <p><RxDotFilled/>{user.attackerId}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+        <div className='pie-chart-back'>
+          <div className='static-pie-chart'>
+            <h4 className='pie-left-title'>카테고리별</h4>
             <Pie data={abuseCntByCategory} />
           </div>
-          <div style={{width:'40%', padding:'20px 0 40px 0',marginLeft:'170px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>시간대별</h4>
+          <div className='static-pie-chart'>
+            <h4 className='pie-right-title'>시간대별</h4>
             <Pie data={reportCntByTime} />
           </div>
         </div>
         <div>
-          <div style={{width:'65%', marginLeft:'280px',marginTop:'30px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'500px'}}>날짜별 욕설추이</h4>
+          <div className='line-back'>
+            <h4 className='line-title'>월별 욕설추이</h4>
             <Line data={reportCntByMonth} />
           </div>
         </div>
-        <div style={{display:'flex', height:'600px'}}>
-          <div style={{width:'40%', marginLeft:'110px',marginTop:'50px'}}>
-            <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>티어별 신고 건수</h4>
+        <div className='bar-back'>
+          <div className='left-bar-back'>
+            <h4 className='bar-title'>티어별 신고 건수</h4>
             <Bar data={reportTierRatio} />
           </div>
-          <div style={{width:'40%', marginLeft:'100px',marginTop:'50px'}}>
-          <h4 style={{fontSize:'25px', fontWeight:'bolder',marginLeft:'220px'}}>Manner-grade별 유저 수</h4>
+          <div className='right-bar-back'>
+          <h4 className='bar-title'>Manner-grade별 유저 수</h4>
             <Bar data={loluserCntByMannerGrade} />
           </div>
         </div>
-      </div>
-      <div
-        className='top10-abuser'
-        style={{
-          display: 'flex',
-          height: '100px',
-          color: 'white',
-          backgroundColor: '#353535',
-        }}
-      >
-        {top10.map((user, index) => {
-          return (
-            <div
-              key={index}
-              style={{ margin: 'auto', fontSize: '5px', fontWeight: 'bold' }}
-            >
-              <p>{user.attackerId}</p>
-              <p>{user.count}</p>
-            </div>
-          );
-        })}
       </div>
     </div>
   );
